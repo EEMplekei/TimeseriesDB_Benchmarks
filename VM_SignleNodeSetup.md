@@ -13,9 +13,6 @@
 
 ```
 sudo apt update
-```
-
-```
 sudo apt upgrade
 ```
 
@@ -97,9 +94,6 @@ wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo gp
 
 ```
 sudo apt update
-```
-
-```
 sudo apt upgrade
 ```
 
@@ -111,12 +105,16 @@ sudo apt install timescaledb-2-postgresql-14
 sudo timescaledb-tune --quiet --yes
 ```
 
+```
+sudo -i -u postgres
+psql
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+ALTER USER postgres WITH PASSWORD 'password';
+```
+
 ### Install Golang:
 ```
 sudo apt update
-```
-
-```
 sudo apt install golang-go
 ```
 		
