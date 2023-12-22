@@ -148,20 +148,13 @@ echo "export PATH=$PATH:~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-2023092113
 source ~/.profile
 ```
 
-### Install python3 and pip3
+### Install pip3 and plotext
 
 ```
 which python3 (sudo apt install python3)
-```
-
-```
 sudo apt-get -y install python3-pip
+pip3 install plotext
 ```
-
-```
-install with pip3 the requirements
-```
-	
 
 ### Generate Data:
 ```
@@ -183,10 +176,38 @@ scp ubuntu@snf-39915.ok-kno.grnetcloud.net:~/go/pkg/mod/github.com/timescale/tsb
 		
 #### Load data into DBs:
 
-- Load into timescale:
+###### Load into Timescale:
+We first have to modify 2 files before loading the data to timescale db.
+```
+cd ~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/scripts/load
+sudo vim load_common.sh
+```
+And change the BULK_DATA_DIR to "/home/ubuntu/iot_data". After that do the following
+```
+cd ~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/scripts/load
+sudo vim load_timescale.sh
+```
+- change database name to have each data set in its own database (based on parameters)
+- remove --partition-on-hostname,  --use_copy
 
-	- cd into tsbs/scripts/load
-	- get filename as command line parameters
-	- change database name to have each data set in its own database
-	- remove --partition-on-hostname,  --use_copy
-- Load into InfluxDB:
+We also have to create files to store the benchmarkings of the insertion phase in 3 files we will create now.
+```
+mkdir performance; cd performance; mkdir write; cd write; touch timescale_small.out; touch timescale_medium.out; touch timescale_large.out;
+```
+
+Now we are ready to load the data to the timescaledb:
+```
+cd ~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/scripts/load
+```
+```
+bash load_timescaledb.sh data_timescaledb_800.dat.gz small | tee ~/performance/write/timescale_small.out
+```
+```
+bash load_timescaledb.sh data_timescaledb_4000.dat.gz medium | tee ~/performance/write/timescale_medium.out
+```
+```
+bash load_timescaledb.sh data_timescaledb_16000.dat.gz large | tee ~/performance/write/timescale_large.out
+```
+
+
+###### Load into InfluxDB:
