@@ -167,21 +167,19 @@ install with pip3 the requirements
 
 ### Generate Data:
 ```
-cd into tsbs/scripts
+cd ~/data_generate
 ```
 
 ```
-vim generate_data_sh
+bash data_timescale_small.sh
+bash data_timescale_medium.sh
+bash data_timescale_large.sh
+bash data_influx_small.sh
+bash data_influx_medium.sh
+bash data_influx_large.sh
 ```
 
-- change BULK_DATA_DIR to "/home/ubuntu/iot_data"
-- change FORMATS to "timescaledb influx"
-- change DATA_FILE_NAME to only print FORMAT and SCALE
-- comment out symlink generation
-		
-```
-scp ubuntu@snf-39915.ok-kno.grnetcloud.net:~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/scripts/generate_data.sh ~/Desktop/generate_data.sh
-```
+Now the data is in the ~/iot_data folder
 		
 #### Load data into DBs:
 
