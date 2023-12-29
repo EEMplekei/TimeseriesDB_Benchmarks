@@ -21,7 +21,7 @@ SEED=${SEED:-"123"}
 
 # Start and stop time for generated timeseries
 TS_START=${TS_START:-"2023-01-01T00:00:00Z"}
-TS_END=${TS_END:-"2023-01-09T08:00:00Z"}
+TS_END=${TS_END:-"2023-01-07T06:00:00Z"}
 
 # What set of data to generate: devops (multiple data), cpu-only (cpu-usage data)
 USE_CASE=${USE_CASE:-"iot"}
