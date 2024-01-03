@@ -1,4 +1,4 @@
-# VM Single Node Setup:
+# Single Node Setup:
 
 
 ## VM Specs:
@@ -161,15 +161,7 @@ pip3 install plotext
 ### Generate Data:
 ```
 cd ~/data_generate
-```
-
-```
-bash data_timescale_small.sh
-bash data_timescale_medium.sh
-bash data_timescale_large.sh
-bash data_influx_small.sh
-bash data_influx_medium.sh
-bash data_influx_large.sh
+bash data_generate.sh
 ```
 
 Now the data is in the ~/iot_data folder
@@ -223,7 +215,7 @@ We will generate the following queries
 The following command will generate single queries for both influx and timescaledb for every dataset size.
 ```
 cd ~/queries_generate
-bash generate_query_single.sh
+bash generate_queries_all.sh
 ```
 
 #### Query Execution Proccess:
