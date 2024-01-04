@@ -8,7 +8,7 @@ if [[ -z "${EXE_FILE_NAME}" ]]; then
 fi
 
 # Queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/queries_generate/queries/10_queries"}
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/10_queries"}
 TIMESCALE_DATA_DIR="${BULK_DATA_DIR}/queries_timescaledb"
 INFLUX_DATA_DIR="${BULK_DATA_DIR}/queries_influx"
 

@@ -18,7 +18,7 @@ DATABASE_PORT=5432;
 DATABASE_PASSWORD="password";
 
 # Queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/queries_generate/queries/${QUERY_TEST}"};
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${QUERY_TEST}"};
 
 # How many queries would be run
 MAX_QUERIES=${MAX_QUERIES:-"0"}
@@ -38,11 +38,11 @@ for FULL_DATA_FILE_NAME in ${BULK_DATA_DIR}/queries_timescaledb/${DATASET_SIZE}/
     EXTENSION="${DATA_FILE_NAME##*.}"
     NO_EXT_DATA_FILE_NAME="${DATA_FILE_NAME%.*}"
     
-    mkdir -p /home/ubuntu/performance/queries
-    mkdir -p /home/ubuntu/performance/queries/timescaledb
-    mkdir -p /home/ubuntu/performance/queries/timescaledb/${QUERY_TEST}
+    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
+    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb
+    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}
 
-    OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/performance/queries/timescaledb/${QUERY_TEST}/timescale_${QUERY_TEST}_${DATASET_SIZE}.out"};
+    OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}/timescale_${QUERY_TEST}_${DATASET_SIZE}.out"};
     
     if [ "${EXTENSION}" == "gz" ]; then
         GUNZIP="gunzip"

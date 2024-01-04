@@ -8,7 +8,7 @@ if [[ -z "${EXE_FILE_NAME}" ]]; then
 fi
 
 # Data folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/iot_data"}
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/iot_data"}
 
 # Space-separated list of target DB formats to generate
 FORMATS=${FORMATS:-"influx timescaledb"}
