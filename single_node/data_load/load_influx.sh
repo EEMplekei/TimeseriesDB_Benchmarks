@@ -37,4 +37,4 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --workers=${NUM_WORKERS} \
                                 --batch-size=${BATCH_SIZE} \
                                 --reporting-period=${REPORTING_PERIOD} \
-                                --urls=http://${DATABASE_HOST}:${DATABASE_PORT} 
+                                --urls=http://${DATABASE_HOST}:${DATABASE_PORT} | tee ../performance/write/influx_${DATASET_SIZE}.out
