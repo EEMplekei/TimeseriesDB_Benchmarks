@@ -7,10 +7,17 @@ if [[ -z "$EXE_FILE_NAME" ]]; then
     exit 1
 fi
 
+DATASET_SIZE=${1};
 # Load parameters - common
-DATA_FILE_NAME=${DATA_FILE_NAME:-$1}
+DATA_FILE_NAME=${DATA_FILE_NAME:-data_timescaledb_${DATASET_SIZE}.dat.gz}
+
+if [-f ${DATA_FILE_NAME}]; then
+    echo "Data file ${DATA_FILE_NAME} not found"
+    exit -1
+fi
+
 DATABASE_USER=${DATABASE_USER:-postgres}
-DATABASE_NAME=${DATABASE_NAME:-benchmark_$2}
+DATABASE_NAME=${DATABASE_NAME:-benchmark_${DATASET_SIZE}
 DATABASE_HOST=${DATABASE_HOST:-localhost}
 DATABASE_PORT=${DATABASE_PORT:-5432}
 DATABASE_PWD=${DATABASE_PWD:-password}

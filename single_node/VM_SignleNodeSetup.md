@@ -181,13 +181,13 @@ To insert the data (once generated) to timescaledb do the following:
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_timescaledb.sh data_timescale_small.dat.gz small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_small.out
+bash load_timescaledb.sh small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_small.out
 ```
 ```
-bash load_timescaledb.sh data_timescale_medium.dat.gz medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_medium.out
+bash load_timescaledb.sh medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_medium.out
 ```
 ```
-bash load_timescaledb.sh data_timescale_large.dat.gz large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_large.out
+bash load_timescaledb.sh large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_large.out
 ```
 
 ###### Load into InfluxDB:
@@ -196,13 +196,13 @@ bash load_timescaledb.sh data_timescale_large.dat.gz large >> ~/TimeseriesDB_Ben
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_influx.sh data_influx_small.dat.gz small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_small.out
+bash load_influx.sh small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_small.out
 ```
 ```
-bash load_influx.sh data_influx_medium.dat.gz medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_medium.out
+bash load_influx.sh medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_medium.out
 ```
 ```
-bash load_influx.sh data_influx_large.dat.gz large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_large.out
+bash load_influx.sh large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_large.out
 ```
 #### Query Generation Proccess:
 
