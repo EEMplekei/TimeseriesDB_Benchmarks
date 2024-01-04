@@ -26,51 +26,18 @@ reboot
 Now the kernel is version linux 5.15.0-89-generic
 	
 ### Install InfluxDB
-Source -> https://medium.com/yavar/install-and-setup-influxdb-on-ubuntu-20-04-22-04-3d6e090ec70c)
+Source -> https://docs.influxdata.com/influxdb/v1/introduction/install/
 		
 ```
-sudo apt update
-```
-
-```
 wget -q https://repos.influxdata.com/influxdata-archive_compat.key
-```
-
-```
 echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-```
-
-```
 echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 
 ```
-sudo apt update
+sudo apt-get update && sudo apt-get install influxdb
+sudo service influxdb start
 ```
-
-```
-sudo apt install influxdb2
-```
-
-```
-sudo systemctl start influxdb
-```
-
-```
-sudo systemctl enable influxdb
-```
-
-```
-sudo ufw allow 8086/tcp
-```
-		
-Now we are able to access the influxDB UI through port 8086 and using the systems public IP address (or domain)
-We set up username and password:
-- Username: influxDB
-- Password: m01g48p96
-- Organization: NTUA
-- Initial Bucket Name: system
-- API Token: 
 
 ### Install PostgressDB:
 Source -> https://docs.timescale.com/self-hosted/latest/install/installation-linux/
@@ -181,13 +148,13 @@ To insert the data (once generated) to timescaledb do the following:
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_timescaledb.sh small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_small.out
+bash load_timescaledb.sh small
 ```
 ```
-bash load_timescaledb.sh medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_medium.out
+bash load_timescaledb.sh medium
 ```
 ```
-bash load_timescaledb.sh large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_large.out
+bash load_timescaledb.sh large
 ```
 
 ###### Load into InfluxDB:
@@ -196,13 +163,13 @@ bash load_timescaledb.sh large >> ~/TimeseriesDB_Benchmarks/single_node/performa
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_influx.sh small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_small.out
+bash load_influx.sh small
 ```
 ```
-bash load_influx.sh medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_medium.out
+bash load_influx.sh medium 
 ```
 ```
-bash load_influx.sh large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_large.out
+bash load_influx.sh large
 ```
 #### Query Generation Proccess:
 
