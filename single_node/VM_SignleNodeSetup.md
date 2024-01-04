@@ -160,14 +160,14 @@ pip3 install plotext
 
 ### Generate Data:
 ```
-cd ~/data_generate
+cd ~/TimeseriesDB_Benchmarks/single_node/data_generate
 bash data_generate.sh
 ```
 
-Now the data is in the ~/iot_data folder
+Now the data is in the ~/TimeseriesDB_Benchmarks/single_node/iot_data folder
 		
 #### Load data into DBs:
-The scripts for loading the data to the databases are in the ~/data_load folder.
+The scripts for loading the data to the databases are in the ~/TimeseriesDB_Benchmarks/single_node/data_load folder.
 
 We have to create the folder to store the benchmarkings of the insertion phase.
 ```
@@ -178,31 +178,31 @@ mkdir performance; cd performance; mkdir write; cd write;
 To insert the data (once generated) to timescaledb do the following:
 
 ```
-cd ~/data_load
+cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_timescaledb.sh data_timescale_small.dat.gz small >> ~/performance/write/timescale_small.out
+bash load_timescaledb.sh data_timescale_small.dat.gz small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_small.out
 ```
 ```
-bash load_timescaledb.sh data_timescale_medium.dat.gz medium >> ~/performance/write/timescale_medium.out
+bash load_timescaledb.sh data_timescale_medium.dat.gz medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_medium.out
 ```
 ```
-bash load_timescaledb.sh data_timescale_large.dat.gz large >> ~/performance/write/timescale_large.out
+bash load_timescaledb.sh data_timescale_large.dat.gz large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_large.out
 ```
 
 ###### Load into InfluxDB:
 
 ```
-cd ~/data_load
+cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
 ```
-bash load_influx.sh data_influx_small.dat.gz small >> ~/performance/write/influx_small.out
+bash load_influx.sh data_influx_small.dat.gz small >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_small.out
 ```
 ```
-bash load_influx.sh data_influx_medium.dat.gz medium >> ~/performance/write/influx_medium.out
+bash load_influx.sh data_influx_medium.dat.gz medium >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_medium.out
 ```
 ```
-bash load_influx.sh data_influx_large.dat.gz large >> ~/performance/write/influx_large.out
+bash load_influx.sh data_influx_large.dat.gz large >> ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_large.out
 ```
 #### Query Generation Proccess:
 
@@ -214,7 +214,7 @@ We will generate the following queries
 ##### Single Query Generation Proccess:
 The following command will generate single queries for both influx and timescaledb for every dataset size.
 ```
-cd ~/queries_generate
+cd ~/TimeseriesDB_Benchmarks/single_node/queries_generate
 bash generate_queries_all.sh
 ```
 
@@ -224,7 +224,7 @@ Scripts for this proccess is in the /query_execution folder. There are 2 scripts
 ##### Single Query Execution Proccess:
 Run the following commands to run all the single queries for all datasets.
 ```
-cd ~/queries_execution
+cd ~/TimeseriesDB_Benchmarks/single_node/queries_execution
 bash run_queries_timescale.sh single small
 bash run_queries_timescale.sh single medium
 bash run_queries_timescale.sh single large
@@ -232,4 +232,4 @@ bash run_queries_influx.sh single small
 bash run_queries_influx.sh single medium
 bash run_queries_influx.sh single large
 ```
-The result of these commands will be in ~/performance/queries.
+The result of these commands will be in ~/TimeseriesDB_Benchmarks/single_node/performance/queries.
