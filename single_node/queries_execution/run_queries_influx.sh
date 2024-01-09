@@ -45,8 +45,7 @@ function run_file()
         | $GUNZIP \
         | $EXE_FILE_NAME \
             --max-queries $MAX_QUERIES \
-            --workers $NUM_WORKERS \
-        | tee $OUT_FULL_FILE_NAME
+            --workers $NUM_WORKERS >> $OUT_FULL_FILE_NAME
 }
 
 if [ "$#" -gt 0 ]; then
