@@ -43,7 +43,7 @@ sudo service influxdb start
 Source -> https://docs.timescale.com/self-hosted/latest/install/installation-linux/
 
 ```
-apt install gnupg postgresql-common apt-transport-https lsb-release wget
+sudo apt install gnupg postgresql-common apt-transport-https lsb-release wget
 ```
 
 ```
