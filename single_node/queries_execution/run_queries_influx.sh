@@ -52,8 +52,5 @@ if [ "$#" -gt 0 ]; then
         run_file $FULL_DATA_FILE_NAME
     done
 else
-    echo "Do not have any files specified - run from default queries folder as ${BULK_DATA_DIR}/queries_clickhouse*"
-    for FULL_DATA_FILE_NAME in "${BULK_DATA_DIR}/queries_influx"*; do
-        run_file $FULL_DATA_FILE_NAME
-    done
+    echo "Do not have any queries to run. Your parameters are not right."
 fi
