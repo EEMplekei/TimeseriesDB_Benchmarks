@@ -44,7 +44,8 @@ function run_file()
     cat $FULL_DATA_FILE_NAME \
         | $GUNZIP \
         | $EXE_FILE_NAME \
-            --db-name $DB_NAME\
+            --db-name $DB_NAME \
+	    --print-responses \
             --max-queries $MAX_QUERIES \
             --workers $NUM_WORKERS >> $OUT_FULL_FILE_NAME
 }
