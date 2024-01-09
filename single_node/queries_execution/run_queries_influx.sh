@@ -50,7 +50,6 @@ function run_file()
 }
 
 if [ "$#" -gt 0 ]; then
-    echo "Have $# files specified as params"
     for FULL_DATA_FILE_NAME in ${BULK_DATA_DIR}/queries_influx/${DATASET_SIZE}/*; do
         run_file $FULL_DATA_FILE_NAME
     done
