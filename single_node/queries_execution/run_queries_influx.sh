@@ -16,6 +16,13 @@ MAX_QUERIES=${MAX_QUERIES:-"0"}
 # How many concurrent worker would run queries - match num of cores, or default to 4
 NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || echo 4)}
 
+
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}
+
+rm /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out
+
 #
 # Run test for one file
 #
@@ -27,10 +34,6 @@ function run_file()
     DIR=$(dirname "${FULL_DATA_FILE_NAME}")
     EXTENSION="${DATA_FILE_NAME##*.}"
     NO_EXT_DATA_FILE_NAME="${DATA_FILE_NAME%.*}"
-
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}
 
     OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out"};
 
