@@ -9,6 +9,7 @@ fi
 
 QUERY_TEST=${1};
 DATASET_SIZE=${2};
+DB_NAME="benchmark_${DATASET_SIZE}";
 
 # Default queries folder
 BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${QUERY_TEST}"}
@@ -43,6 +44,7 @@ function run_file()
     cat $FULL_DATA_FILE_NAME \
         | $GUNZIP \
         | $EXE_FILE_NAME \
+            --db-name $DB_NAME\
             --max-queries $MAX_QUERIES \
             --workers $NUM_WORKERS >> $OUT_FULL_FILE_NAME
 }
