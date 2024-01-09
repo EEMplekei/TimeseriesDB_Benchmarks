@@ -21,11 +21,6 @@ NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || ec
 #
 function run_file()
 {
-    # $FULL_DATA_FILE_NAME:  /full/path/to/file_with.ext
-    # $DATA_FILE_NAME:       file_with.ext
-    # $DIR:                  /full/path/to
-    # $EXTENSION:            ext
-    # NO_EXT_DATA_FILE_NAME: file_with
 
     FULL_DATA_FILE_NAME=$1
     DATA_FILE_NAME=$(basename -- "${FULL_DATA_FILE_NAME}")
@@ -38,7 +33,6 @@ function run_file()
     mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}
 
     OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out"};
-    
 
     if [ "${EXTENSION}" == "gz" ]; then
         GUNZIP="gunzip"
@@ -57,7 +51,7 @@ function run_file()
 
 if [ "$#" -gt 0 ]; then
     echo "Have $# files specified as params"
-    for FULL_DATA_FILE_NAME in "$@"; do
+    for FULL_DATA_FILE_NAME in ${BULK_DATA_DIR}/queries_influx/${DATASET_SIZE}/*; do
         run_file $FULL_DATA_FILE_NAME
     done
 else
