@@ -124,7 +124,11 @@ which python3 (sudo apt install python3)
 sudo apt-get -y install python3-pip
 pip3 install plotext
 ```
-
+### Clone this repository into the virtual machine
+To do this, the machine has to have SSH access to the private repository and this can be done by generating an SSH key-pair using `ssh-keygen` and adding it to the repository SSH keys.
+```
+cd && git clone git@github.com:EEMplekei/TimeseriesDB_Benchmarks.git
+```
 ### Generate Data:
 ```
 cd ~/TimeseriesDB_Benchmarks/single_node/data_generate
