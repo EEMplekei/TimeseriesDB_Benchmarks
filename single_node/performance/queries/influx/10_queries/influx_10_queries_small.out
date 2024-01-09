@@ -1,66 +1,66 @@
-Run complete after 10 queries with 4 workers (Overall query rate 624.84 queries/sec):
+Run complete after 10 queries with 4 workers (Overall query rate 1115.44 queries/sec):
 Influx average driver driving duration per day:
-min:     1.60ms, med:     4.14ms, mean:     5.28ms, max:    8.27ms, stddev:     2.57ms, sum:   0.1sec, count: 10
+min:     0.73ms, med:     2.86ms, mean:     3.66ms, max:    8.31ms, stddev:     2.48ms, sum:   0.0sec, count: 10
 all queries                                   :
-min:     1.60ms, med:     4.14ms, mean:     5.28ms, max:    8.27ms, stddev:     2.57ms, sum:   0.1sec, count: 10
-wall clock time: 0.022636sec
-Run complete after 10 queries with 4 workers (Overall query rate 752.68 queries/sec):
+min:     0.73ms, med:     2.86ms, mean:     3.66ms, max:    8.31ms, stddev:     2.48ms, sum:   0.0sec, count: 10
+wall clock time: 0.016360sec
+Run complete after 10 queries with 4 workers (Overall query rate 866.59 queries/sec):
 Influx average driver driving session without stopping per day:
-min:     2.39ms, med:     4.06ms, mean:     5.29ms, max:    9.26ms, stddev:     2.16ms, sum:   0.1sec, count: 10
+min:     1.25ms, med:     4.00ms, mean:     4.53ms, max:    7.70ms, stddev:     2.30ms, sum:   0.0sec, count: 10
 all queries                                                   :
-min:     2.39ms, med:     4.06ms, mean:     5.29ms, max:    9.26ms, stddev:     2.16ms, sum:   0.1sec, count: 10
-wall clock time: 0.019726sec
-Run complete after 10 queries with 4 workers (Overall query rate 819.28 queries/sec):
+min:     1.25ms, med:     4.00ms, mean:     4.53ms, max:    7.70ms, stddev:     2.30ms, sum:   0.0sec, count: 10
+wall clock time: 0.017190sec
+Run complete after 10 queries with 4 workers (Overall query rate 1174.95 queries/sec):
 Influx average load per truck model per fleet:
-min:     0.85ms, med:     2.00ms, mean:     3.53ms, max:    8.04ms, stddev:     2.65ms, sum:   0.0sec, count: 10
+min:     0.54ms, med:     3.14ms, mean:     3.17ms, max:    5.37ms, stddev:     1.59ms, sum:   0.0sec, count: 10
 all queries                                  :
-min:     0.85ms, med:     2.00ms, mean:     3.53ms, max:    8.04ms, stddev:     2.65ms, sum:   0.0sec, count: 10
-wall clock time: 0.017035sec
-Run complete after 10 queries with 4 workers (Overall query rate 3280.12 queries/sec):
+min:     0.54ms, med:     3.14ms, mean:     3.17ms, max:    5.37ms, stddev:     1.59ms, sum:   0.0sec, count: 10
+wall clock time: 0.012600sec
+Run complete after 10 queries with 4 workers (Overall query rate 694.67 queries/sec):
 Influx average vs projected fuel consumption per fleet:
-min:     1.23ms, med:     2.86ms, mean:     2.94ms, max:    5.84ms, stddev:     1.22ms, sum:   0.0sec, count: 10
+min:     1.00ms, med:     3.65ms, mean:     4.31ms, max:   13.11ms, stddev:     3.28ms, sum:   0.0sec, count: 10
 all queries                                           :
-min:     1.23ms, med:     2.86ms, mean:     2.94ms, max:    5.84ms, stddev:     1.22ms, sum:   0.0sec, count: 10
-wall clock time: 0.015382sec
-Run complete after 10 queries with 4 workers (Overall query rate 731.85 queries/sec):
+min:     1.00ms, med:     3.65ms, mean:     4.31ms, max:   13.11ms, stddev:     3.28ms, sum:   0.0sec, count: 10
+wall clock time: 0.019926sec
+Run complete after 10 queries with 4 workers (Overall query rate 1076.36 queries/sec):
 Influx truck breakdown frequency per model:
-min:     1.06ms, med:     3.34ms, mean:     5.05ms, max:   10.75ms, stddev:     3.18ms, sum:   0.1sec, count: 10
+min:     0.75ms, med:     1.45ms, mean:     2.85ms, max:    7.49ms, stddev:     2.14ms, sum:   0.0sec, count: 10
 all queries                               :
-min:     1.06ms, med:     3.34ms, mean:     5.05ms, max:   10.75ms, stddev:     3.18ms, sum:   0.1sec, count: 10
-wall clock time: 0.021538sec
-Run complete after 10 queries with 4 workers (Overall query rate 1015.55 queries/sec):
+min:     0.75ms, med:     1.45ms, mean:     2.85ms, max:    7.49ms, stddev:     2.14ms, sum:   0.0sec, count: 10
+wall clock time: 0.012494sec
+Run complete after 10 queries with 4 workers (Overall query rate 783.00 queries/sec):
 Influx daily truck activity per fleet per model:
-min:     0.85ms, med:     4.06ms, mean:     3.68ms, max:    6.09ms, stddev:     1.77ms, sum:   0.0sec, count: 10
+min:     1.03ms, med:     3.31ms, mean:     4.04ms, max:    7.93ms, stddev:     1.97ms, sum:   0.0sec, count: 10
 all queries                                    :
-min:     0.85ms, med:     4.06ms, mean:     3.68ms, max:    6.09ms, stddev:     1.77ms, sum:   0.0sec, count: 10
-wall clock time: 0.014294sec
-Run complete after 10 queries with 4 workers (Overall query rate 581.01 queries/sec):
+min:     1.03ms, med:     3.31ms, mean:     4.04ms, max:    7.93ms, stddev:     1.97ms, sum:   0.0sec, count: 10
+wall clock time: 0.016364sec
+Run complete after 10 queries with 4 workers (Overall query rate 1172.84 queries/sec):
 Influx trucks with high load:
-min:     1.78ms, med:     3.75ms, mean:     4.31ms, max:    8.58ms, stddev:     1.95ms, sum:   0.0sec, count: 10
+min:     1.04ms, med:     3.48ms, mean:     3.86ms, max:    7.58ms, stddev:     2.10ms, sum:   0.0sec, count: 10
 all queries                 :
-min:     1.78ms, med:     3.75ms, mean:     4.31ms, max:    8.58ms, stddev:     1.95ms, sum:   0.0sec, count: 10
-wall clock time: 0.033681sec
-Run complete after 10 queries with 4 workers (Overall query rate 702.28 queries/sec):
+min:     1.04ms, med:     3.48ms, mean:     3.86ms, max:    7.58ms, stddev:     2.10ms, sum:   0.0sec, count: 10
+wall clock time: 0.013293sec
+Run complete after 10 queries with 4 workers (Overall query rate 1419.77 queries/sec):
 Influx last location per truck:
-min:     0.61ms, med:     3.95ms, mean:     3.87ms, max:    5.46ms, stddev:     1.49ms, sum:   0.0sec, count: 10
+min:     0.65ms, med:     1.51ms, mean:     2.11ms, max:    4.57ms, stddev:     1.19ms, sum:   0.0sec, count: 10
 all queries                   :
-min:     0.61ms, med:     3.95ms, mean:     3.87ms, max:    5.46ms, stddev:     1.49ms, sum:   0.0sec, count: 10
-wall clock time: 0.018761sec
-Run complete after 10 queries with 4 workers (Overall query rate 653.52 queries/sec):
+min:     0.65ms, med:     1.51ms, mean:     2.11ms, max:    4.57ms, stddev:     1.19ms, sum:   0.0sec, count: 10
+wall clock time: 0.011430sec
+Run complete after 10 queries with 4 workers (Overall query rate 1186.55 queries/sec):
 Influx trucks with longer driving sessions:
-min:     2.04ms, med:     4.30ms, mean:     4.78ms, max:    8.74ms, stddev:     1.74ms, sum:   0.0sec, count: 10
+min:     0.73ms, med:     1.26ms, mean:     2.68ms, max:    6.11ms, stddev:     1.98ms, sum:   0.0sec, count: 10
 all queries                               :
-min:     2.04ms, med:     4.30ms, mean:     4.78ms, max:    8.74ms, stddev:     1.74ms, sum:   0.0sec, count: 10
-wall clock time: 0.020207sec
-Run complete after 10 queries with 4 workers (Overall query rate 1139.89 queries/sec):
+min:     0.73ms, med:     1.26ms, mean:     2.68ms, max:    6.11ms, stddev:     1.98ms, sum:   0.0sec, count: 10
+wall clock time: 0.013260sec
+Run complete after 10 queries with 4 workers (Overall query rate 1041.61 queries/sec):
 Influx trucks with low fuel:
-min:     0.97ms, med:     1.82ms, mean:     2.78ms, max:    6.58ms, stddev:     1.74ms, sum:   0.0sec, count: 10
+min:     0.93ms, med:     2.34ms, mean:     3.63ms, max:    6.80ms, stddev:     2.15ms, sum:   0.0sec, count: 10
 all queries                :
-min:     0.97ms, med:     1.82ms, mean:     2.78ms, max:    6.58ms, stddev:     1.74ms, sum:   0.0sec, count: 10
-wall clock time: 0.013026sec
-Run complete after 10 queries with 4 workers (Overall query rate 790.06 queries/sec):
+min:     0.93ms, med:     2.34ms, mean:     3.63ms, max:    6.80ms, stddev:     2.15ms, sum:   0.0sec, count: 10
+wall clock time: 0.014004sec
+Run complete after 10 queries with 4 workers (Overall query rate 920.41 queries/sec):
 Influx stationary trucks:
-min:     0.73ms, med:     2.73ms, mean:     3.20ms, max:    6.65ms, stddev:     1.63ms, sum:   0.0sec, count: 10
+min:     1.16ms, med:     1.83ms, mean:     3.24ms, max:    6.85ms, stddev:     2.09ms, sum:   0.0sec, count: 10
 all queries             :
-min:     0.73ms, med:     2.73ms, mean:     3.20ms, max:    6.65ms, stddev:     1.63ms, sum:   0.0sec, count: 10
-wall clock time: 0.016061sec
+min:     1.16ms, med:     1.83ms, mean:     3.24ms, max:    6.85ms, stddev:     2.09ms, sum:   0.0sec, count: 10
+wall clock time: 0.013807sec
