@@ -26,21 +26,19 @@ MAX_QUERIES=${MAX_QUERIES:-"0"}
 # How many concurrent worker would run queries - match num of cores, or default to 4
 NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || echo 4)}
 
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb
+mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}
+rm -f /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}/timescale_${QUERY_TEST}_${DATASET_SIZE}.out
+
 for FULL_DATA_FILE_NAME in ${BULK_DATA_DIR}/queries_timescaledb/${DATASET_SIZE}/*; do
-    # $FULL_DATA_FILE_NAME:  /full/path/to/file_with.ext
-    # $DATA_FILE_NAME:       file_with.ext
-    # $DIR:                  /full/path/to
-    # $EXTENSION:            ext
-    # NO_EXT_DATA_FILE_NAME: file_with
 
     DATA_FILE_NAME=$(basename -- "${FULL_DATA_FILE_NAME}")
     DIR=$(dirname "${FULL_DATA_FILE_NAME}")
     EXTENSION="${DATA_FILE_NAME##*.}"
     NO_EXT_DATA_FILE_NAME="${DATA_FILE_NAME%.*}"
     
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb
-    mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}
+
 
     OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}/timescale_${QUERY_TEST}_${DATASET_SIZE}.out"};
     
