@@ -1,0 +1,2 @@
+influx-small:129M
+timescale-large:16G

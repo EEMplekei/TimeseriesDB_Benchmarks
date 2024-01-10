@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import csv
 import subprocess
 import numpy as np
 import psycopg2
@@ -30,7 +30,7 @@ rows = cur.fetchall()
 timescaledb_database_dictionary = {}
 
 # Map size identifiers to specific OIDs
-size_mapping = {'small', 'medium', 'large'}
+size_mapping = {'small', 'medium'}
 
 for name, oid in rows:
     for size in size_mapping:
@@ -43,22 +43,25 @@ cur.close()
 conn.close()
 
 # Print the resulting dictionary
-#print(timescaledb_database_dictionary)
+print(timescaledb_database_dictionary)
 
 sudo_password = 'GsGLKgki5V'
 
+def extract_numeric_part(size_str):
+    return float(size_str[:-1]) if size_str[-1].isalpha() else float(size_str)
+
 def findBytesFromDatabaseFolderList(dir_path):
     global sudo_password
-    command = 'du --apparent-size ' + dir_path
+    command = 'du -h --apparent-size ' + dir_path
     output = subprocess.check_output('echo %s|sudo -S %s' % (sudo_password, command), shell=True).decode()
     data_bytes = output.split('\n')[-2].split('\t')[0]
     return data_bytes
 
-database_names = ["influx", "timescaledb"]
-dataset_sizes = ["small", "medium", "large"]
+#database_names = ["influx", "timescaledb"]
+#dataset_sizes = ["small", "medium"]
 timescaledb_data_dir = '/var/lib/postgresql/14/main/base/'
 influx_data_dir = '/var/lib/influxdb/data/'
-influx_database_dictionary = { 'small' : 'benchmark_small', 'medium' : 'benchmark_medium', 'large' : 'benchmark_large' }
+influx_database_dictionary = { 'small' : 'benchmark_small', 'medium' : 'benchmark_medium'}
 database_dictionary = {
     'timescaledb' : timescaledb_database_dictionary,
     'timescaledb_data_dir' : timescaledb_data_dir ,
@@ -71,16 +74,15 @@ for db_name in database_names:
     for ds_size in dataset_sizes:
         data_dir = db_name + "_data_dir"
         full_data_dir = database_dictionary[data_dir] + database_dictionary[db_name][ds_size]
-        data_bytes =  float(findBytesFromDatabaseFolderList(full_data_dir))/1000
+        data_bytes = float(extract_numeric_part(findBytesFromDatabaseFolderList(full_data_dir)))
         bytes_per_size.append(data_bytes)
-    
-    results_per_db.append(bytes_per_size)    
 
-x ,width = np.arange(2), 0.2
-plt.bar(x, results_per_db[1], width, color='orange') 
-plt.bar(x-width, results_per_db[0], width, color='purple')
-plt.xticks(x, ['Small 1 GB', 'Medium 5GB', 'Large 15GB'])
-plt.xlabel("Original dataset size")
-plt.ylabel("KBytes in disk")
-plt.legend(["TimescaleDB", "InfluxDB"])
-plt.show()
+    results_per_db.append(bytes_per_size)
+
+# Write the data to a file
+output_file = "data_output.txt"
+with open(output_file, "w") as f:
+    for i, db_name in enumerate(database_names):
+        for j, ds_size in enumerate(dataset_sizes):
+            f.write(f"{db_name} {ds_size} {results_per_db[i][j]}\n")
+
