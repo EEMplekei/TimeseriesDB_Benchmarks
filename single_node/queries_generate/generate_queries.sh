@@ -8,13 +8,13 @@ if [[ -z "${EXE_FILE_NAME}" ]]; then
 fi
 
 #Ensure parameter is numeric
-if ! [[ ${1} =~ ^[0-9]+$ ]]; then
+if ! [[ ${1} =~ ^[0-9]+$ ]]  || ((${1} <= 0)); then
   echo "Call this script with the number of queries you want to generate. Numeric values only."
   exit -1;
 fi
 
 # Queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${1}"}
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${1}_queries"}
 TIMESCALE_DATA_DIR="${BULK_DATA_DIR}/queries_timescaledb"
 INFLUX_DATA_DIR="${BULK_DATA_DIR}/queries_influx"
 
