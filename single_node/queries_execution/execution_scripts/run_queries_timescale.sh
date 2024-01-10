@@ -26,8 +26,6 @@ MAX_QUERIES=${MAX_QUERIES:-"0"}
 # How many concurrent worker would run queries - match num of cores, or default to 4
 NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || echo 4)}
 
-mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
-mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb
 mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}
 rm -f /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/timescaledb/${QUERY_TEST}/timescale_${QUERY_TEST}_${DATASET_SIZE}.out
 
