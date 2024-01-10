@@ -17,13 +17,13 @@ Queries should be generated beforehand using the scripts in [queries_generate](h
 * To run the benchmark, execute the following commands:
 
 ```bash
-bash run_queries_{timeseries_database}.sh {query_size} {db_size}
+bash execution_scripts/run_queries_{timeseries_database}.sh {query_size} {db_size}
 ```
 - {timeseries_database} : 
 - {query_size}: size of the generated query count. The script in [queries_generate](https://github.com/EEMplekei/TimeseriesDB_Benchmarks/tree/main/single_node/queries_generate) generate default values of 1, 10, 100 and 100 and thus these values can be *1_queries*, *10_queries* or *100_queries*.
 - {db_size} The size of the database dataset. Should be *small*, *medium* or *large*
 
-To run all influx queries all you have  to do is execute the `run_all_queries_influx.sh` bash script which takes care of all the calls of the `run_queries_influx.sh` with the correct parameters. It also clears the cache between each call so that prior queries do not affect the performance of subsequent calls
+To run all influx queries all you have  to do is execute the `run_all_queries_influx.sh` bash script which takes care of all the calls of the `execution_scripts/run_queries_influx.sh` with the correct parameters. It also clears the cache between each call so that prior queries do not affect the performance of subsequent calls
 ```bash
 bash run_all_queries_influx.sh
 ```
