@@ -18,8 +18,6 @@ MAX_QUERIES=${MAX_QUERIES:-"0"}
 NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || echo 4)}
 
 
-mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries
-mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx
 mkdir -p /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}
 rm -f /home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out
 
@@ -45,7 +43,6 @@ function run_file()
         | $GUNZIP \
         | $EXE_FILE_NAME \
             --db-name $DB_NAME \
-	    --print-responses \
             --max-queries $MAX_QUERIES \
             --workers $NUM_WORKERS >> $OUT_FULL_FILE_NAME
 }
