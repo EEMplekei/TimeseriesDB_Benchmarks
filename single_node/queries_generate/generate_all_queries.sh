@@ -4,7 +4,7 @@
 GENERATE_SCRIPT="./generate_queries.sh"
 
 # Values for the number of queries
-QUERY_VALUES=(1 10 100 1000)
+QUERY_VALUES=(1 10 100)
 
 # Loop through the values and call the generate_queries.sh script
 for value in "${QUERY_VALUES[@]}"; do
