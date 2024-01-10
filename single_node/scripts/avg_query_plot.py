@@ -1,18 +1,42 @@
 import numpy as np
 import parse_file
+import os
+import matplotlib.pyplot as plt
 
-databases = ["influx"]
+databases = ["timescale","influx"]
 nbr_queries = ["10","100"]
 dataset_size = ["small", "medium", "large"]
-for database in databases:
-    for nbr_query in nbr_queries:
-        for dataset_size in dataset_size:
-            file_path = '../performance/queries/' + database + '/' + nbr_query + '_queries/' + database + '_' + nbr_query + '_queries_' + dataset_size + '.out'
-            means = parse_file.parse_file(file_path)
-            print("Database: " + database + " - Nbr queries: " + nbr_query + " - Dataset size: " + dataset_size)
-            print("Mean: " + str(np.mean(means)))
-            #print("Standard deviation: " + str(np.std(means)))
-            #print("Median: " + str(np.median(means)))
-            #print("Min: " + str(np.min(means)))
-            #print("Max: " + str(np.max(means)))
-            print("")
+for nbr_query in nbr_queries:
+    # Initialize lists to store means and database names for each query count
+    means_list = []
+    database_names = []
+
+    for database in databases:
+        means_per_database = []
+        for size in dataset_size:
+            file_path = os.path.join('..', 'performance', 'queries', database, f'{nbr_query}_queries', f'{database}_{nbr_query}_queries_{size}.out')
+            try:
+                means = parse_file.parse_file(file_path)
+                means_per_database.append(np.mean(means))
+            except FileNotFoundError:
+                print(f"File not found: {file_path}")
+            except Exception as e:
+                print(f"Error processing file {file_path}: {e}")
+
+        if means_per_database:
+            means_list.append(means_per_database)
+            database_names.append(database)
+
+    # Create a bar plot for each number of queries
+    x = np.arange(len(dataset_size))
+    width = 0.2  # Width of the bars
+
+    for i, (means, database_name) in enumerate(zip(means_list, database_names)):
+        plt.bar(x + i * width, means, width=width, label=database_name)
+
+    plt.xlabel('Dataset Size')
+    plt.ylabel('Mean Value')
+    plt.title(f'Mean Values for {nbr_query} Queries')
+    plt.xticks(x + width * (len(databases) - 1) / 2, dataset_size)
+    plt.legend()
+    plt.show()
