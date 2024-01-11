@@ -3,7 +3,7 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 RESET='\033[0m'
 DATABASE_SIZES=("large")
-QUERY_COUNTS=("1" "10" "100")
+QUERY_COUNTS=("1" "10")
 
 echo -e "${GREEN}Running all queries for timescaledb. This will take a while...\n"
 

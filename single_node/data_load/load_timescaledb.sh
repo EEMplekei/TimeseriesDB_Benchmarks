@@ -67,4 +67,4 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --do-create-db=${DO_CREATE_DB} \
                                 --force-text-format=${FORCE_TEXT_FORMAT} \
                                 --replication-factor=${REPLICATION_FACTOR} \
-                                --create-metrics-table=${CREATE_METRICS_TABLE} | tee ../performance/write/timescale_${DATASET_SIZE}.out
+                                --create-metrics-table=${CREATE_METRICS_TABLE} | tee ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_${DATASET_SIZE}.out
