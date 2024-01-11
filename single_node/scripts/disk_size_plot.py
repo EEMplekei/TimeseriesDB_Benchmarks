@@ -12,7 +12,7 @@ try:
     for line in lines:
         key, value = line.strip().split(':')
         metric, size = key.split('-')
-        data.setdefault(metric, {})[size] = float(value[:-1])  # Removing 'G' and converting to float
+        data.setdefault(metric, {})[size] = float(float(value)/(1000 ** 3))  # converting to float
 
     # Check if all pairs exist
     categories = ['small', 'medium', 'large']
@@ -27,8 +27,9 @@ try:
         error_message = f"One or more databases are missing: {', '.join(missing_pairs)}. Please create them before running this script or check the input file."
         raise ValueError(error_message)
     else:
-        # Plotting
-        timescale_values = [data['timescale'][category] for category in categories]
+        # Plotting, we have everything
+        timescale_values = [data['timescale'][category]
+                            for category in categories]
         influx_values = [data['influx'][category] for category in categories]
 
         bar_width = 0.35
@@ -36,7 +37,8 @@ try:
 
         fig, ax = plt.subplots()
         bar1 = ax.bar(index, timescale_values, bar_width, label='timescale')
-        bar2 = ax.bar([i + bar_width for i in index], influx_values, bar_width, label='influx')
+        bar2 = ax.bar([i + bar_width for i in index],
+                      influx_values, bar_width, label='influx')
 
         ax.set_xlabel('Category')
         ax.set_ylabel('Size (G)')
@@ -45,10 +47,19 @@ try:
         ax.set_xticklabels(categories)
         ax.legend()
 
+        # Add labels above each bar
+        for bar, value in zip(bar1, timescale_values):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
+                    f'{value:.2f}G', ha='center', va='bottom')
+
+        for bar, value in zip(bar2, influx_values):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
+                    f'{value:.2f}G', ha='center', va='bottom')
+
         plt.show()
 
 except FileNotFoundError:
     print(f"Error: File '{file_path}' not found. Please check the file path.")
 except ValueError as e:
     print("Error:", e)
-    # Terminate the script or perform additional error handling here
+    # Terminate the script

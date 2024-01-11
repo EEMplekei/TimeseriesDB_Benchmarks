@@ -9,6 +9,13 @@ from psycopg2 import OperationalError
 
 database = sys.argv[1]
 size = sys.argv[2]
+if(size!="small" and size!="medium" and size!="large"):
+    print("Error: Please enter a valid size.")
+    sys.exit(1)
+if(database!="influx" and database!="timescale"):
+    print("Error: Please enter a valid database name.")
+    sys.exit(1)
+    
 if(database=="influx"):
     data_dir = '/var/lib/influxdb/data/'
 elif(database=="timescale"):
