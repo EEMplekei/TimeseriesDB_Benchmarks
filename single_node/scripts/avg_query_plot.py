@@ -3,9 +3,9 @@ import parse_file
 import os
 import matplotlib.pyplot as plt
 
-databases = ["timescale","influx"]
-nbr_queries = ["10","100"]
-dataset_size = ["small", "medium", "large"]
+databases = ["influx","influx"]
+nbr_queries = ["1", "10","100"]
+dataset_size = ["small", "medium","large"]
 for nbr_query in nbr_queries:
     # Initialize lists to store means and database names for each query count
     means_list = []
@@ -17,6 +17,7 @@ for nbr_query in nbr_queries:
             file_path = os.path.join('..', 'performance', 'queries', database, f'{nbr_query}_queries', f'{database}_{nbr_query}_queries_{size}.out')
             try:
                 means = parse_file.parse_file(file_path)
+                # print("database -" + database+ " , size - " + size + ", nbr_query - " +nbr_query)
                 means_per_database.append(np.mean(means))
             except FileNotFoundError:
                 print(f"File not found: {file_path}")
@@ -26,7 +27,7 @@ for nbr_query in nbr_queries:
         if means_per_database:
             means_list.append(means_per_database)
             database_names.append(database)
-
+    
     # Create a bar plot for each number of queries
     x = np.arange(len(dataset_size))
     width = 0.2  # Width of the bars
@@ -35,8 +36,8 @@ for nbr_query in nbr_queries:
         plt.bar(x + i * width, means, width=width, label=database_name)
 
     plt.xlabel('Dataset Size')
-    plt.ylabel('Mean Value')
-    plt.title(f'Mean Values for {nbr_query} Queries')
+    plt.ylabel('Queries / Second')
+    plt.title(f'Average queries per second (for {nbr_query} Queries per query type)')
     plt.xticks(x + width * (len(databases) - 1) / 2, dataset_size)
     plt.legend()
     plt.show()
