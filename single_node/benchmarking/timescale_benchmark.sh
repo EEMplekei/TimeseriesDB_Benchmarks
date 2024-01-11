@@ -15,7 +15,7 @@ echo -e "${YELLOW}### Loading data into databases${NC}"
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 for db in "${db_sizes[@]}"; do
     echo -e "${GREEN}Loading data into InfluxDB for $db dataset${NC}"
-    bash load_timescale.sh "$db"
+    bash load_timescaledb.sh "$db"
 done
 
 #Run queries for small, medium datasets
