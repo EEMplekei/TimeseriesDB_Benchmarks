@@ -2,7 +2,7 @@
 
 # Query generation scripts
 
-This folders contains the scripts for generating timeseries queries using `tsbs_generate_queries` and a helper script to automate the generation with different query counts. It generates 1, 10 or 100 queries to test the scaling of the database against multiple queries execution of the same kind.
+This folders contains the scripts for generating timeseries queries using `tsbs_generate_queries` and a helper script to automate the generation with different query counts. It generates 1 and 10 queries to test the scaling of the database against multiple queries execution of the same kind.
 
 ## Prerequisites
 
