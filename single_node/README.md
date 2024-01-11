@@ -3,8 +3,8 @@
 
 ## VM Specs:
 - Ubuntu 22.04 Jammy Cloud
-- 8 CPUs
-- 16Gb Ram
+- 4 CPUs
+- 4Gb Ram
 - 30Gb Disk
 
 GsGLKgki5V
