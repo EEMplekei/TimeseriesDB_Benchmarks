@@ -11,10 +11,10 @@ for SIZE in "${DATABASE_SIZES[@]}"; do
   for COUNT in "${QUERY_COUNTS[@]}"; do
     echo -e "${RED}Running ${COUNT} queries for ${SIZE} database...${RESET}\n"
     #run query for specified size and count
-    bash execution_scripts/run_queries_influx.sh "${COUNT}_queries" "${SIZE}"
+    bash ./execution_scripts/run_queries_influx.sh "${COUNT}_queries" "${SIZE}"
     echo -e "${BLUE}Finished running ${COUNT} queries for ${SIZE} database. Clearing caches...${RESET}\n"
     #cleer cache before running next query
-    bash clear_caches/influx_clr_cache.sh
+    bash ./clear_caches/influx_clr_cache.sh
     echo
   done
 done

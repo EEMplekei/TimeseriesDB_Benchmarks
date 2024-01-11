@@ -28,6 +28,8 @@ until curl http://${DATABASE_HOST}:${DATABASE_PORT}/ping 2>/dev/null; do
     sleep 1
 done
 
+mkdir -p ~/TimeseriesDB_Benchmarks/single_node/performance/write
+
 # Remove previous database
 curl -X POST http://${DATABASE_HOST}:${DATABASE_PORT}/query?q=drop%20database%20${DB_NAME}
 # Load new data
@@ -37,4 +39,4 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --workers=${NUM_WORKERS} \
                                 --batch-size=${BATCH_SIZE} \
                                 --reporting-period=${REPORTING_PERIOD} \
-                                --urls=http://${DATABASE_HOST}:${DATABASE_PORT} | tee ../performance/write/influx_${DATASET_SIZE}.out
+                                --urls=http://${DATABASE_HOST}:${DATABASE_PORT} | tee ~/TimeseriesDB_Benchmarks/single_node/performance/write/influx_${DATASET_SIZE}.out

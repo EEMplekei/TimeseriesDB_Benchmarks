@@ -1,0 +1,66 @@
+Run complete after 10 queries with 4 workers (Overall query rate 0.18 queries/sec):
+Influx average driver driving duration per day:
+min: 12539.39ms, med: 19363.84ms, mean: 19994.06ms, max: 24246.27ms, stddev:  4051.82ms, sum: 199.9sec, count: 10
+all queries                                   :
+min: 12539.39ms, med: 19363.84ms, mean: 19994.06ms, max: 24246.27ms, stddev:  4051.82ms, sum: 199.9sec, count: 10
+wall clock time: 56.842172sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.11 queries/sec):
+Influx average driver driving session without stopping per day:
+min: 25119.74ms, med: 33908.74ms, mean: 32697.86ms, max: 36528.13ms, stddev:  3407.42ms, sum: 327.0sec, count: 10
+all queries                                                   :
+min: 25119.74ms, med: 33908.74ms, mean: 32697.86ms, max: 36528.13ms, stddev:  3407.42ms, sum: 327.0sec, count: 10
+wall clock time: 95.178205sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.02 queries/sec):
+Influx average load per truck model per fleet:
+min: 150790.14ms, med: 199262.21ms, mean: 193593.34ms, max: 211402.75ms, stddev: 21967.82ms, sum: 1935.9sec, count: 10
+all queries                                  :
+min: 150790.14ms, med: 199262.21ms, mean: 193593.34ms, max: 211402.75ms, stddev: 21967.82ms, sum: 1935.9sec, count: 10
+wall clock time: 559.793634sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.18 queries/sec):
+Influx average vs projected fuel consumption per fleet:
+min: 11919.87ms, med: 22187.01ms, mean: 20455.07ms, max: 23234.56ms, stddev:  4235.64ms, sum: 204.6sec, count: 10
+all queries                                           :
+min: 11919.87ms, med: 22187.01ms, mean: 20455.07ms, max: 23234.56ms, stddev:  4235.64ms, sum: 204.6sec, count: 10
+wall clock time: 57.187465sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.04 queries/sec):
+Influx truck breakdown frequency per model:
+min: 71421.95ms, med: 80777.21ms, mean: 80280.78ms, max: 86024.19ms, stddev:  5205.55ms, sum: 802.8sec, count: 10
+all queries                               :
+min: 71421.95ms, med: 80777.21ms, mean: 80280.78ms, max: 86024.19ms, stddev:  5205.55ms, sum: 802.8sec, count: 10
+wall clock time: 235.383366sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.39 queries/sec):
+Influx daily truck activity per fleet per model:
+min:  5655.81ms, med:  9804.29ms, mean:  9258.16ms, max: 10643.97ms, stddev:  1782.66ms, sum:  92.6sec, count: 10
+all queries                                    :
+min:  5655.81ms, med:  9804.29ms, mean:  9258.16ms, max: 10643.97ms, stddev:  1782.66ms, sum:  92.6sec, count: 10
+wall clock time: 25.975547sec
+Run complete after 10 queries with 4 workers (Overall query rate 4.97 queries/sec):
+Influx trucks with high load:
+min:   547.42ms, med:   595.87ms, mean:   710.04ms, max: 1024.93ms, stddev:   166.09ms, sum:   7.1sec, count: 10
+all queries                 :
+min:   547.42ms, med:   595.87ms, mean:   710.04ms, max: 1024.93ms, stddev:   166.09ms, sum:   7.1sec, count: 10
+wall clock time: 2.091915sec
+Run complete after 10 queries with 4 workers (Overall query rate 7.63 queries/sec):
+Influx last location per truck:
+min:   293.71ms, med:   480.94ms, mean:   475.35ms, max:  583.29ms, stddev:    84.60ms, sum:   4.8sec, count: 10
+all queries                   :
+min:   293.71ms, med:   480.94ms, mean:   475.35ms, max:  583.29ms, stddev:    84.60ms, sum:   4.8sec, count: 10
+wall clock time: 1.375825sec
+Run complete after 10 queries with 4 workers (Overall query rate 8.44 queries/sec):
+Influx trucks with longer driving sessions:
+min:   320.22ms, med:   391.50ms, mean:   435.94ms, max:  572.06ms, stddev:    89.39ms, sum:   4.4sec, count: 10
+all queries                               :
+min:   320.22ms, med:   391.50ms, mean:   435.94ms, max:  572.06ms, stddev:    89.39ms, sum:   4.4sec, count: 10
+wall clock time: 1.264502sec
+Run complete after 10 queries with 4 workers (Overall query rate 5.65 queries/sec):
+Influx trucks with low fuel:
+min:   436.05ms, med:   644.80ms, mean:   625.82ms, max:  790.30ms, stddev:    98.49ms, sum:   6.3sec, count: 10
+all queries                :
+min:   436.05ms, med:   644.80ms, mean:   625.82ms, max:  790.30ms, stddev:    98.49ms, sum:   6.3sec, count: 10
+wall clock time: 1.838294sec
+Run complete after 10 queries with 4 workers (Overall query rate 1.38 queries/sec):
+Influx stationary trucks:
+min:  1425.15ms, med:  2760.45ms, mean:  2593.79ms, max: 3283.84ms, stddev:   565.28ms, sum:  25.9sec, count: 10
+all queries             :
+min:  1425.15ms, med:  2760.45ms, mean:  2593.79ms, max: 3283.84ms, stddev:   565.28ms, sum:  25.9sec, count: 10
+wall clock time: 7.359098sec

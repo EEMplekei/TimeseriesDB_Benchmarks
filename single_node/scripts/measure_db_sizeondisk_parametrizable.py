@@ -5,6 +5,7 @@ import psycopg2
 import sys
 import re
 import os
+from psycopg2 import OperationalError
 
 database = sys.argv[1]
 size = sys.argv[2]
@@ -19,29 +20,46 @@ elif(database=="timescale"):
     host = 'localhost'
     port = '5432'
 
-    # Connect to the PostgreSQL database
-    conn = psycopg2.connect(
-        dbname=database_name,
-        user=user,
-        password=password,
-        host=host,
-        port=port
-    )
+    # Initialize cur and conn outside the try block
+    cur = None
+    conn = None
+    try:
+        # Connect to the PostgreSQL database
+        conn = psycopg2.connect(
+            dbname=database_name,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+        )
 
-    # Create a cursor object to execute queries
-    cur = conn.cursor()
+        # Create a cursor object to execute queries
+        cur = conn.cursor()
 
-    # Execute the query to fetch database names and OIDs for databases starting with 'benchmark'
-    cur.execute("SELECT oid FROM pg_database WHERE datname = 'benchmark_"+size +"'")
+        # Execute the query to fetch database names and OIDs for databases starting with 'benchmark'
+        cur.execute("SELECT oid FROM pg_database WHERE datname = %s", (database_name,))
 
-    # Fetch all rows from the result set
-    rows = cur.fetchall()
-
-    # Close the cursor and connection
-    cur.close()
-    conn.close()
-    oid = rows[0][0]
-    
+        # Fetch all rows from the result set
+        rows = cur.fetchall()
+        
+        # Continue with your code for processing the results
+        oid = rows[0][0]
+    except OperationalError as e:
+        # Catch the exception if the database connection fails
+        # You can check the specific error message to determine if it's due to the database not existing
+        error_message = str(e)
+        if "does not exist" in error_message:
+            print(f"Error: The database '{database_name}' does not exist. Please create it before running this script.")
+        else:
+            # Handle other operational errors if needed
+            print(f"Error: {error_message}")
+        sys.exit(1)  # Terminate the script with a non-zero exit code
+    finally:
+        # Close the cursor and connection in the finally block to ensure they are always closed
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
 sudo_password = 'GsGLKgki5V'
 
 def findBytesFromDatabaseFolderList(dir_path):
@@ -63,7 +81,7 @@ def extract_numeric_and_string_parts(input_string):
         # No match, return None for both parts
         return None, None
 
-def write_data_to_file(category, value, file_path='data_file.txt'):
+def write_data_to_file(category, value, file_path='../performance/disk/size_on_disk'):
 
     # Check if the file already exists
     file_exists = os.path.isfile(file_path)
@@ -93,8 +111,21 @@ def write_data_to_file(category, value, file_path='data_file.txt'):
         file.writelines(lines)
 
 if(database=="influx"):
-    full_data_dir = data_dir + 'benchmark_' + size
+    try:
+        full_data_dir = data_dir + 'benchmark_' + size
+        # Check if the full_data_dir exists
+        if not os.path.exists(full_data_dir):
+            raise FileNotFoundError("Error: The database benchmark_" + size + " does not exist. Please create it before running this script.")
+
+        # Proceed with your existing code
+        data_bytes, unit = extract_numeric_and_string_parts(findBytesFromDatabaseFolderList(full_data_dir))
+        write_data_to_file(database + "-" + size, str(data_bytes) + unit)
+
+    except Exception as e:
+        # Catch any other exceptions that might occur
+        print(f"{e}")
+        sys.exit(1)  # Terminate the script with a non-zero exit code
 elif(database=="timescale"):
     full_data_dir = data_dir + str(oid)
-data_bytes,unit  = extract_numeric_and_string_parts(findBytesFromDatabaseFolderList(full_data_dir))
-write_data_to_file(database+"-"+size, str(data_bytes) + unit)
+    data_bytes,unit  = extract_numeric_and_string_parts(findBytesFromDatabaseFolderList(full_data_dir))
+    write_data_to_file(database+"-"+size, str(data_bytes) + unit)
