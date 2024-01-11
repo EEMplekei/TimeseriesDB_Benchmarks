@@ -1,0 +1,6 @@
+timescale-large:16G
+timescale-medium:5G
+timescale-small:1G
+influx-large:1.6G
+influx-medium:0.5G
+influx-small:0.1G

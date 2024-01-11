@@ -81,7 +81,7 @@ def extract_numeric_and_string_parts(input_string):
         # No match, return None for both parts
         return None, None
 
-def write_data_to_file(category, value, file_path='../performance/disk/size_on_disk'):
+def write_data_to_file(category, value, file_path='../performance/disk/size_on_disk.out'):
 
     # Check if the file already exists
     file_exists = os.path.isfile(file_path)

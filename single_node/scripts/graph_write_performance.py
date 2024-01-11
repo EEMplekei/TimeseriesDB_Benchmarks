@@ -1,12 +1,18 @@
 import matplotlib.pyplot as plt
 
-database_names = ["influx", "influx"]
-dataset_sizes = ["small","medium", "large"]
+# Define a function to assign numerical values to sizes
+def size_order(size):
+    size_order_dict = {"small": 1, "medium": 2, "large": 3}
+    return size_order_dict.get(size, 0)
+
+database_names = ["timescale", "influx"]
+dataset_sizes = ["small", "medium", "large"]
 
 pairs_all = [(db, size) for db in database_names for size in dataset_sizes]
-
+# Sort the pairs based on the custom size_order function
+pairs_all = sorted(pairs_all, key=lambda pair: size_order(pair[1]))
 # Define colors for each database
-color_map = {"timescale": "red", "influx": "green"}
+color_map = {"timescale": "#1f77b4", "influx": "#fe7f10"}
 
 # Create a single figure with subplots
 fig, axes = plt.subplots(2, 1, figsize=(10, 8))
@@ -35,8 +41,8 @@ for pair in pairs_all:
     # Assign colors based on the database name
     color = color_map.get(pair[0], "gray")
 
-    ax1.bar(str(pair[0])+" - "+str(pair[1]), metrics_per_sec, color=color, width=0.2)
-    ax2.bar(str(pair[0])+" - "+str(pair[1]), rows_per_sec, color=color, width=0.2)
+    ax1.bar(str(pair[0]) + " - " + str(pair[1]), metrics_per_sec, color=color, width=0.4)
+    ax2.bar(str(pair[0]) + " - " + str(pair[1]), rows_per_sec, color=color, width=0.4)
 
     ax1.set_ylabel("Metrics / second")
     ax2.set_xlabel("Database, Dataset Size")
