@@ -64,7 +64,7 @@ sudo_password = 'GsGLKgki5V'
 
 def findBytesFromDatabaseFolderList(dir_path):
     global sudo_password
-    command = 'du -h --apparent-size ' + dir_path
+    command = 'du --bytes ' + dir_path
     output = subprocess.check_output('echo %s|sudo -S %s' % (sudo_password, command), shell=True).decode()
     data_bytes_str = output.split('\n')[-2].split('\t')[0]
     return data_bytes_str
@@ -118,8 +118,8 @@ if(database=="influx"):
             raise FileNotFoundError("Error: The database benchmark_" + size + " does not exist. Please create it before running this script.")
 
         # Proceed with your existing code
-        data_bytes, unit = extract_numeric_and_string_parts(findBytesFromDatabaseFolderList(full_data_dir))
-        write_data_to_file(database + "-" + size, str(data_bytes) + unit)
+        data_bytes = findBytesFromDatabaseFolderList(full_data_dir)
+        write_data_to_file(database + "-" + size, str(data_bytes))
 
     except Exception as e:
         # Catch any other exceptions that might occur
@@ -127,5 +127,5 @@ if(database=="influx"):
         sys.exit(1)  # Terminate the script with a non-zero exit code
 elif(database=="timescale"):
     full_data_dir = data_dir + str(oid)
-    data_bytes,unit  = extract_numeric_and_string_parts(findBytesFromDatabaseFolderList(full_data_dir))
-    write_data_to_file(database+"-"+size, str(data_bytes) + unit)
+    data_bytes = findBytesFromDatabaseFolderList(full_data_dir)
+    write_data_to_file(database+"-"+size, str(data_bytes))
