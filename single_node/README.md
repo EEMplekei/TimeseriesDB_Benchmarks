@@ -119,7 +119,7 @@ echo "export PATH=$PATH:~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-2023092113
 source ~/.profile
 ```
 
-### Install pip3 and plotext
+### Install pip3
 
 ```
 which python3 (sudo apt install python3)
