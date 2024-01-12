@@ -1,62 +1,102 @@
+import os
+import re
 import matplotlib.pyplot as plt
 
-# Define a function to assign numerical values to sizes
-def size_order(size):
-    size_order_dict = {"small": 1, "medium": 2, "large": 3}
-    return size_order_dict.get(size, 0)
+directory_path = "../performance/write"
 
-database_names = ["timescale", "influx"]
-dataset_sizes = ["small", "medium", "large"]
+# Create a dictionary to store mean rates
+mean_rates_dict = {}
 
-pairs_all = [(db, size) for db in database_names for size in dataset_sizes]
-# Sort the pairs based on the custom size_order function
-pairs_all = sorted(pairs_all, key=lambda pair: size_order(pair[1]))
-# Define colors for each database
-color_map = {"timescale": "#1f77b4", "influx": "#fe7f10"}
+# Iterate through each file in the directory
+for filename in os.listdir(directory_path):
+	file_path = os.path.join(directory_path, filename)
+	# Check if the path is a file
+	if os.path.isfile(file_path):
+		with open(file_path, 'r') as file:
+			# Read the last two lines of the file
+			lines = file.readlines()[-2:]
 
-# Create a single figure with subplots
-fig, axes = plt.subplots(2, 1, figsize=(10, 8))
+			# Extract mean rates using regular expressions
+			metrics_mean_rate_match = re.search(
+				r'mean rate (\d+\.\d+) metrics/sec', lines[0])
+			rows_mean_rate_match = re.search(
+				r'mean rate (\d+\.\d+) rows/sec', lines[1])
 
-for pair in pairs_all:
-    rows_per_sec = []
-    metrics_per_sec = []
-    try:
-        with open(f"../performance/write/{pair[0]}_{pair[1]}.out") as f:
-            lines = f.readlines()
-            for l in lines:
-                if l.startswith('loaded'):
-                    line = l.split(' ')
-                    if "metrics/sec)" in l:
-                        metrics_per_sec.append(float(line[-2]))
-                    if "rows/sec)" in l:
-                        rows_per_sec.append(float(line[-2]))
+			# If both matches are successful, append mean rates to dictionary
+			if metrics_mean_rate_match and rows_mean_rate_match:
+				metrics_mean_rate = float(metrics_mean_rate_match.group(1))
+				rows_mean_rate = float(rows_mean_rate_match.group(1))
 
-    except FileNotFoundError:
-        print(f"File not found: ../performance/write/{pair[0]}_{pair[1]}.out")
-    except Exception as e:
-        print(f"File not found: ../performance/write/{pair[0]}_{pair[1]}.out :{e}")
-    # Use the index to access the appropriate subplot
-    ax1, ax2 = axes
+				mean_rates_dict[filename] = {
+					'metrics_mean_rate': metrics_mean_rate,
+					'rows_mean_rate': rows_mean_rate
+				}
 
-    # Assign colors based on the database name
-    color = color_map.get(pair[0], "gray")
+# Iterate through the dictionary and separate the values for each database
+timescale_dict = {}
+influx_dict = {}
+for key, value in mean_rates_dict.items():
+	database, size = key.split('_')
+	size = size.split('.')[0]
+	if database == 'timescale':
+		timescale_dict[size] = value
+	else:
+		influx_dict[size] = value
 
-    ax1.bar(str(pair[0]) + " - " + str(pair[1]), metrics_per_sec, color=color, width=0.4)
-    ax2.bar(str(pair[0]) + " - " + str(pair[1]), rows_per_sec, color=color, width=0.4)
+#Define and parse into lists
+influx_rowspersec = {"small": 0, "medium": 0, "large": 0}
+influx_metricspersec = {"small": 0, "medium": 0, "large": 0}
+timescale_rowspersec = {"small": 0, "medium": 0, "large": 0}
+timescale_metricspersec = {'small': 0, 'medium': 0, 'large': 0}
 
-    ax1.set_ylabel("Metrics / second")
-    ax2.set_xlabel("Database, Dataset Size")
-    ax2.set_ylabel("Rows / second")
+for key, value in influx_dict.items():
+	influx_rowspersec[key] = value['rows_mean_rate']
+	influx_metricspersec[key] = value['metrics_mean_rate']
 
-# Set common xlabel for the last subplot
-ax2.set_xlabel("Database - Dataset Size")
+for key, value in timescale_dict.items():
+	timescale_rowspersec[key] = value['rows_mean_rate']
+	timescale_metricspersec[key] = value['metrics_mean_rate']
 
-# Set title for the entire figure
-fig.suptitle("Dataset insert performance comparison")
+influx_rowspersec = list(influx_rowspersec.values())
+influx_metricspersec = list(influx_metricspersec.values())
+timescale_rowspersec = list(timescale_rowspersec.values())
+timescale_metricspersec = list(timescale_metricspersec.values())
 
-# Rotate x-axis tick labels
-for ax in axes:
-    ax.tick_params(axis='x', rotation=45)
+# Plotting
+rows_per_sec = [influx_rowspersec, timescale_rowspersec]
+metrics_mean_rate = [influx_metricspersec, timescale_metricspersec]
+categories = ['small', 'medium', 'large']
+axes = [None, None]
+bar_width = 0.35
+index = range(len(categories))
+fig, (axes[0], axes[1]) = plt.subplots(nrows=2, ncols=1, figsize=(10, 8))
 
-plt.tight_layout()
+bar1 = axes[0].bar(index, influx_rowspersec, bar_width, label='influx', color='#fe7f10')
+bar2 = axes[0].bar([i + bar_width for i in index], timescale_rowspersec, bar_width, label='timescale', color='#1f77b4')
+
+axes[0].set_ylabel('Rows / second')
+axes[0].set_title('Comparison of TimescaleDB and Influx dataset insertion speed')
+axes[0].set_xticks([i + bar_width / 2 for i in index])
+axes[0].set_xticklabels(categories)
+
+bar3 = axes[1].bar(index, influx_metricspersec, bar_width, label='influx', color='#fe7f10')
+bar4 = axes[1].bar([i + bar_width for i in index], timescale_metricspersec, bar_width, label='timescale', color='#1f77b4')
+
+axes[1].set_xlabel('Dataset Size')
+axes[1].set_ylabel('Metrics / second')
+axes[1].set_xticks([i + bar_width / 2 for i in index])
+axes[1].set_xticklabels(categories)
+bars = [ [bar1, bar2], [bar3, bar4] ]
+
+# Add labels above each bar
+for item in zip(axes, [rows_per_sec, metrics_mean_rate], bars):
+	item[0].legend(loc='upper right', fancybox=True, framealpha=0.5)
+	for bar, value in zip(item[2][0], item[1][0]):
+		item[0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
+				f'{value/1000:.2f}k ', ha='center', va='bottom')
+
+	for bar, value in zip(item[2][1], item[1][1]):
+		item[0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
+				f'{value/1000:.2f}k', ha='center', va='bottom')
+
 plt.show()
