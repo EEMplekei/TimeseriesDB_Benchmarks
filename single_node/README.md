@@ -3,8 +3,8 @@
 
 ## VM Specs:
 - Ubuntu 22.04 Jammy Cloud
-- 8 CPUs
-- 16Gb Ram
+- 4 CPUs
+- 4Gb Ram
 - 30Gb Disk
 
 GsGLKgki5V
@@ -76,6 +76,8 @@ sudo timescaledb-tune --quiet --yes
 
 ```
 sudo -i -u postgres
+echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/14/main/postgresql.conf
+/etc/init.d/postgresql restart (complete the password in password prompt)
 psql
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 ALTER USER postgres WITH PASSWORD 'password';
@@ -122,7 +124,6 @@ source ~/.profile
 ```
 which python3 (sudo apt install python3)
 sudo apt-get -y install python3-pip
-pip3 install plotext
 ```
 ### Clone this repository into the virtual machine
 To do this, the machine has to have SSH access to the private repository and this can be done by generating an SSH key-pair using `ssh-keygen` and adding it to the repository SSH keys.
