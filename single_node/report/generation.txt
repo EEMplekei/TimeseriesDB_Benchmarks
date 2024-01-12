@@ -6,8 +6,9 @@ Concerning the specification of dataset sizes, we determined the appropriate tim
 
 For the selected research use case, we focused on the Internet of Things (IoT). Rigorous consistency was maintained in the application of non-random results across all data and generated queries. This meticulous approach ensures the repeatability of IoT data generation, facilitating adjustments in both the database size and dataset dimensions.
 
-For those seeking additional technical insights into the data generation process, comprehensive details are available in our script located within our repository at [REPO/single_node/data_generate/data_generate.sh].
+This use case is meant to simulate the data load in an IoT environment. This use case simulates data streaming from a set of trucks belonging to a fictional trucking company. This use case simulates diagnostic data and metrics from each truck, and introduces environmental factors such as out-of-order data and batch ingestion (for trucks that are offline for a period of time). It also tracks truck metadata and uses this to tie metrics and diagnostics together as part of the query set. [https://github.com/timescale/tsbs]
 
+For those seeking additional technical insights into the data generation process, comprehensive details are available in our script located within our repository at [REPO/single_node/data_generate/data_generate.sh].
 
 
 
