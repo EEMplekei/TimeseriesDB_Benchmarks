@@ -33,7 +33,7 @@ USE_HYPERTABLE=${USE_HYPERTABLE:-true}
 DO_CREATE_DB=${DO_CREATE_DB:-true}
 FORCE_TEXT_FORMAT=${FORCE_TEXT_FORMAT:-false}
 USE_COPY=${USE_COPY:-true}
-REPLICATION_FACTOR=${REPLICATION_FACTOR:-0}
+REPLICATION_FACTOR=${REPLICATION_FACTOR:-1}
 CREATE_METRICS_TABLE=${CREATE_METRICS_TABLE:-true}
 PARTITION_ON_HOSTNAME=${PARTITION_ON_HOSTNAME:-false}
 
@@ -67,4 +67,4 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --do-create-db=${DO_CREATE_DB} \
                                 --force-text-format=${FORCE_TEXT_FORMAT} \
                                 --replication-factor=${REPLICATION_FACTOR} \
-                                --create-metrics-table=${CREATE_METRICS_TABLE} | tee ~/TimeseriesDB_Benchmarks/single_node/performance/write/timescale_${DATASET_SIZE}.out
+                                --create-metrics-table=${CREATE_METRICS_TABLE} | tee ~/TimeseriesDB_Benchmarks/multi_node/performance/write/timescale_${DATASET_SIZE}.out
