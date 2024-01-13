@@ -18,7 +18,7 @@ sudo apt upgrade
 
 To any popups we select OK
 ```
-reboot
+sudo reboot
 ```
 	
 Now the kernel is version linux 5.15.0-89-generic
