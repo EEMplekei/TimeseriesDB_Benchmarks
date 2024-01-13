@@ -16,13 +16,13 @@ The three VMs
     Password: GsGLKgki5V
 
 - Node B
-    Domain: snf-42647.ok-kno.grnetcloud.net
+    Domain: snf-42792.ok-kno.grnetcloud.net
 
-    Password: j7rjTErCXX
+    Password: mArHF77Hly
 
 - Node C
-    Domain: snf-42717.ok-kno.grnetcloud.net
+    Domain: snf-42798.ok-kno.grnetcloud.net
 
-    Password: rVZUWO1KMX
+    Password: HaPI7BusVR
 
 ## Installation and Setup Procces
