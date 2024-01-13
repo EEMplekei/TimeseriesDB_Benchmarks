@@ -1,0 +1,30 @@
+PERFORMANCE EVALUATION: WRITE OPERATIONS
+
+To assess the insertion performance of each database, we employed bash scripts, supplied by TSBS (Time Series Benchmark Suite). Specifically load_timescaledb.sh REF(REPO/TimeseriesDB_Benchmarks/single_node/data_load) and load_influx.sh REF(REPO/TimeseriesDB_Benchmarks/single_node/data_load) are used to parameterize and execute the tsbs_load_timescaledb and tsbs_load_influx Go binaries.
+
+For load_timescaledb, the initial modification involves adjusting the DATA_FILE_NAME environment variable to specify the desired file for insertion. Subsequently, relevant PostgreSQL authentication environment variables are adjusted: DATA_BASE_USER_NAME DATA_BASE_NAME DATA_BASE_HOST DATA_BASE_PORT DATA_BASE_PASSWORD
+
+Before executing the script, the BULK_DATA_DIR variable in load_common.sh REF(REPO/TimeseriesDB_Benchmarks/single_node/data_load) must be updated to point to the directory containing the generated data. In our case: 
+BULK_DATA_DIR = /home/ubuntu/TimeseriesDB_Benchmarks/single_node/iot_data
+
+The required modifications for running the load_influx.sh script mirror those for load_timescaledb with the only exception that, in the case of Influx, the password variable is not required.
+
+We then analyzed the generated output files and crafted performance graphs, utilizing a Python script to compare the ingestion rates in rows per second and metrics per second for each database at different sizes. The results are visually depicted below:
+
+[PNG as result of the execution script: python3 /TimeseriesDB_Benchmarks/single_node/scripts/graph_write_performance.py]
+
+In the context of performance insertion metrics:
+- Rows/s (Rows per Second): This metric indicates the rate at which individual rows or data points are being ingested, processed, or queried in the database.
+- Metrics/s (Metrics per Second): This metric refers to the rate at which sets of values or measurements (metrics) are being processed. It's a higher-level metric that accounts for the fact that each row may contain multiple values or dimensions.
+
+In terms of rows rate, Timescale demonstrates a peak performance for medium dataset sizes, reaching 57.99K metrics/sec. In comparison, InfluxDB exhibits a noticeable reduction at 45.66K metrics/sec for the same dataset, reflecting a substantial decrease of 21%. In scenarios involving smaller datasets, the disparity between the two databases diminishes, with TimescaleDB achieving a rate of 51.12K metrics/sec and InfluxDB registering 49.19K metrics/sec. In the context of larger datasets, the performance differential lies between the two aforementioned scenarios, with a discernible difference of approximately 17%.
+
+Regarding the metric rate, InfluxDB consistently surpasses TimescaleDB, exhibiting a substantial increment across all datasets. In particular, InfluxDB attains its zenith at 388.87K metrics/sec for the small dataset, displaying a marginal reduction as the scale of the database expands by an order of magnitude. Conversely, TimescaleDB, while manifesting comparatively smaller peaks, demonstrates commendable proficiency in maintaining a consistent or enhanced ingestion rate as the database size increases, in stark contrast to the deceleration observed in InfluxDB. 
+
+The distinct nature of InfluxDB and PostgreSQL/TimescaleDB is evident from the depicted graph. InfluxDB is specifically engineered for the continuous ingestion of metrics, exhibiting prowess in managing high-frequency, real-time data influx within the domain of time-series data. Its storage engine and query language are optimized for this continuous ingestion pattern, making it well-suited for scenarios where new data points are arriving frequently.
+In contrast, Timescale (as a PostgreSQL extension) follows a row-based approach to data storage and ingestion. Although TimescaleDB is finely tuned for time-series data and incorporates extensions aimed at augmenting performance within such workloads, it remains steadfast in its adherence to the relational model. This adherence underscores the methodical insertion of data into the database structure as individual rows, aligning with conventional relational database practices.
+
+It is imperative to acknowledge that, as elucidated in the forthcoming section concerning disk sizes, our methodology involves adhering to the default compression configurations implemented by TimescaleDB and InfluxDB. Notably, InfluxDB employs a data compression mechanism, while TimescaleDB does not. This intrinsic discrepancy in compression methodologies likely contributes to the fact that TimescaleDB can sustain a more consistent or augmented insertion rate. In contrast, InfluxDB exhibits a reduction in performance as the database size expands, potentially indicative of an increased cost associated with compression in the context of larger datasets, as opposed to their smaller counterparts.
+
+
+
