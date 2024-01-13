@@ -127,12 +127,6 @@ echo "export PATH=$PATH:~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-2023092113
 source ~/.profile
 ```
 
-### Install pip3
-
-```
-which python3 (sudo apt install python3)
-sudo apt-get -y install python3-pip
-```
 ### Clone this repository into the virtual machine
 To do this, the machine has to have SSH access to the private repository and this can be done by generating an SSH key-pair using `ssh-keygen` and adding it to the repository SSH keys.
 ```
