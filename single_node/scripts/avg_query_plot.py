@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 databases = ["influx", "timescale"]
 nbr_queries = ["1", "10"]
 dataset_size = ["small", "medium", "large"]
+color_map = {'timescale': '#1f77b4', 'influx': '#ff7f0e'}
+
 for nbr_query in nbr_queries:
     # Initialize lists to store means and database names for each query count
     means_list = []
@@ -34,7 +36,7 @@ for nbr_query in nbr_queries:
     width = 0.2  # Width of the bars
 
     for i, (means, database_name) in enumerate(zip(means_list, database_names)):
-        bar = plt.bar(x + i * width, list(map(lambda x : x / 1000, means)), width=width, label=database_name)
+        bar = plt.bar(x + i * width, list(map(lambda x : x / 1000, means)), width=width, label=database_name, color = color_map.get(database_name))
         plt.bar_label(bar, fmt = '{:,.2f} s')
 
     plt.xlabel('Dataset Size')
