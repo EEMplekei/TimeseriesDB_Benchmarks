@@ -17,8 +17,8 @@ The three VMs
 
 - Node B
   
-      Domain: snf-42798.ok-kno.grnetcloud.net
-      Password: HaPI7BusVR
+        Domain: snf-42798.ok-kno.grnetcloud.net
+        Password: HaPI7BusVR
       
 
 - Node C
