@@ -7,8 +7,6 @@
 - 4Gb Ram
 - 30Gb Disk
 
-GsGLKgki5V
-
 ## Installation and Setup Procces
 
 ### Updating
