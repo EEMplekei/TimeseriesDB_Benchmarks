@@ -74,10 +74,20 @@ sudo timescaledb-tune --quiet --yes
 
 ```
 sudo -i -u postgres
+```
+```
 echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/14/main/postgresql.conf
-/etc/init.d/postgresql restart (complete the password in password prompt)
+```
+```
+/etc/init.d/postgresql restart
+```
+```
 psql
+```
+```
 CREATE EXTENSION IF NOT EXISTS timescaledb;
+```
+```
 ALTER USER postgres WITH PASSWORD 'password';
 ```
 
