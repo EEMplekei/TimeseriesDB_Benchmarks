@@ -12,8 +12,8 @@ The three VMs
 
 - Node A
 
-        Domain: snf-40284.ok-kno.grnetcloud.net
-        Password: GsGLKgki5V
+        Domain: snf-42806.ok-kno.grnetcloud.net
+        Password: 4oTyYffoDg
 
 - Node B
 
