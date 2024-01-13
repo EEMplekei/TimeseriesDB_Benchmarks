@@ -77,11 +77,13 @@ sudo -i -u postgres
 ```
 ```
 echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/14/main/postgresql.conf
+exit
 ```
 ```
-/etc/init.d/postgresql restart
+sudo /etc/init.d/postgresql restart
 ```
 ```
+sudo -i -u postgres
 psql
 ```
 ```

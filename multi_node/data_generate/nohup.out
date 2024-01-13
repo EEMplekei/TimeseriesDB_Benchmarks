@@ -1,0 +1,4 @@
+~/TimeseriesDB_Benchmarks/multi_node/iot_data ~/TimeseriesDB_Benchmarks/multi_node/data_generate
+Generating data_timescaledb_small.dat.gz:
+Generating data_timescaledb_medium.dat.gz:
+Generating data_timescaledb_large.dat.gz:
