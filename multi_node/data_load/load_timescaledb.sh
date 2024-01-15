@@ -30,7 +30,7 @@ PERF_OUTPUT=${PERF_OUTPUT:-}
 JSON_TAGS=${JSON_TAGS:-false}
 IN_TABLE_PARTITION_TAG=${IN_TABLE_PARTITION_TAG:-true}
 USE_HYPERTABLE=${USE_HYPERTABLE:-true}
-DO_CREATE_DB=${DO_CREATE_DB:-true}
+DO_CREATE_DB=${DO_CREATE_DB:-false}
 FORCE_TEXT_FORMAT=${FORCE_TEXT_FORMAT:-false}
 USE_COPY=${USE_COPY:-true}
 REPLICATION_FACTOR=${REPLICATION_FACTOR:-1}
@@ -44,6 +44,8 @@ while ! pg_isready -h ${DATABASE_HOST} -p ${DATABASE_PORT}; do
     echo "Waiting for timescaledb"
     sleep 1
 done
+
+mkdir -p ../performance/write
 
 cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --postgres="sslmode=disable" \
