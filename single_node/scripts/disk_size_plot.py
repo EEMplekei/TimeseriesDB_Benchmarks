@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+color_map = {'timescale': '#1f77b4', 'influx': '#ff7f0e'}
 file_path = '../performance/disk/size_on_disk.out'
 
 try:
@@ -36,9 +36,9 @@ try:
         index = range(len(categories))
 
         fig, ax = plt.subplots()
-        bar1 = ax.bar(index, timescale_values, bar_width, label='timescale')
+        bar1 = ax.bar(index, influx_values, bar_width, label='influx', color = color_map.get('influx'))
         bar2 = ax.bar([i + bar_width for i in index],
-                      influx_values, bar_width, label='influx')
+                      timescale_values, bar_width, label='timescale', color = color_map.get('timescale'))
 
         ax.set_xlabel('Category')
         ax.set_ylabel('Size (G)')
