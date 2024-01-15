@@ -12,11 +12,11 @@ In this project we have conducted a study where we compare the two timeseries da
 
 ### [Single Node Setup](./single_node/README.md)
 
-The installation proccess is found in the single_node ReadMe
+The installation proccess is found [here](./single_node/README.md)
 
 ### [Multi Node Setup](./multi_node/README.md)
 
 
-The installation proccess is found in the multi_node ReadMe
+The installation proccess is found [here](./multi_node/README.md)
 
 ![](https://i.imgur.com/KN8YUhy.png)
