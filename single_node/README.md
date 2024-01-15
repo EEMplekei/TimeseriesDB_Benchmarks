@@ -140,10 +140,10 @@ cd ~/TimeseriesDB_Benchmarks/single_node/data_generate
 bash data_generate.sh
 ```
 
-Now the data is in the ~/TimeseriesDB_Benchmarks/single_node/iot_data folder
+Now the data is in the `~/TimeseriesDB_Benchmarks/single_node/iot_data` folder
 		
 ## Load data into DBs:
-The scripts for loading the data to the databases are in the ~/TimeseriesDB_Benchmarks/single_node/data_load folder.
+The scripts for loading the data to the databases are in the `~/TimeseriesDB_Benchmarks/single_node/data_load` folder.
 
 We have to create the folder to store the benchmarkings of the insertion phase.
 ```
@@ -215,4 +215,4 @@ After that (make sure you have loaded into Timescale the large dataset) run the 
 bash run_large_queries_timescale.sh
 ```
 
-The result of these commands will be in ~/TimeseriesDB_Benchmarks/single_node/performance/queries.
+The result of these commands will be in `~/TimeseriesDB_Benchmarks/single_node/performance/queries`.
