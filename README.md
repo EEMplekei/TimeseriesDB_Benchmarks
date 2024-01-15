@@ -1,2 +1,19 @@
 # TimeseriesDB_Benchmarks
+
 This repo is for the project Analysis and Design of Database Systems (NTUA) Prof. Tsoumakos
+
+## Influx vs TimescaleDB
+
+In this project we have conducted a study where we compare the two timeseries databses (Influx and TimescaleDB) in write time (INSERT), query time (in different kind of queries and number of queries to test indexing and caching performance) in both single-node and multi-node setups (with resources provided by Okeanos).
+
+### The Paper
+
+
+
+### [Single Node Setup](./single_node/README.md)
+
+The installation proccess is found in the single_node ReadMe
+
+### [Multi Node Setup](./multi_node/README.md)
+
+The installation proccess is found in the multi_node ReadMe
