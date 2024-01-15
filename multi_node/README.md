@@ -41,8 +41,9 @@ sudo reboot
 ```
 	
 Now the kernel is version linux 5.15.0-89-generic
-	
-### Install InfluxDB (all nodes):
+
+### Install Influx:
+The Influx database supports clustering mode only in the Enterprise edition which requires some financial resources but it also supports a free 14 trial that we used for our project and we got a license key from their website. The installation and configuration proccess is different for the meta (access) node and the data nodes and for this reason it is stated below seperately for both the meta and the data nodes.
 
 
 ### Install PostgressDB (all nodes):
@@ -176,9 +177,17 @@ SELECT add_data_node('nodeB', '10.0.0.2');
 SELECT add_data_node('nodeC', '10.0.0.3');
 ```
 
-### InfluxDB Configuration (Access Node)
+### Install and configure Influx Meta (Access Node):
+In Influx configuration the access node is called Meta Node and it has a different installer from data node. The installation and configuration proccess for the meta node is the following:
 
+```
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.11.3-c1.11.3-1_amd64.deb
+sudo dpkg -i influxdb-meta_1.11.3-c1.11.3-1_amd64.deb
+```
 
+- After that open the following file with an editor like vim `/etc/influxdb/influxdb-meta.conf` and set `license-key = <your-license-key>` and set `hostname="enterprise-meta-A"`
+
+- Open with an editor the file `/etc/hosts` with root privilage and add the lines `10.0.0.2 enterprise-data-B` and `10.0.0.3 enterprise-data-C` and `10.0.0.1 enterprise-meta-A`
 
 ## Data Node Configuration
 
@@ -187,8 +196,17 @@ SELECT add_data_node('nodeC', '10.0.0.3');
 - Open the following file with an editor like vim `/etc/postgresql/14/main/postgresql.conf` and make the following changes `listening_addresses = "*"` and `max_prepared_transactions = 150` and `wal_level = 'logical'`
 - After that restart the postgresql service with the following command `sudo /etc/init.d/postgresql restart`
 
-### Influx Configuration (Data Nodes)
+### Install and configure Influx Data (Data Node):
+The installation and configuration proccess for the data node is the following:
 
+```
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.11.3-c1.11.3-1_amd64.deb
+sudo dpkg -i influxdb-data_1.11.3-c1.11.3-1_amd64.deb
+```
+
+- After that open the following file with an editor like vim `/etc/influxdb/influxdb.conf` and set `license-path = <your-license-key>` and set `hostname="enterprise-data-B"` and `hostname="enterprise-data-C"` respectively.
+
+- Open with an editor the file `/etc/hosts` with root privilage and add the lines `10.0.0.2 enterprise-data-B` and `10.0.0.3 enterprise-data-C` and `10.0.0.1 enterprise-meta-A`
 
 ## Generate Data:
 ```
@@ -210,3 +228,12 @@ bash load_timescaledb.sh small
 bash load_timescaledb.sh medium
 bash load_timescaledb.sh large
 ```
+### Load into Influx:
+
+
+## Query Generation
+
+We use the same proccess with the single node.
+
+## Query Execution
+
