@@ -220,7 +220,7 @@ Now the data is in the `~/TimeseriesDB_Benchmarks/multi_node/iot_data` folder
 
 ### Load into Timescale:
 
-After the configuration of the data nodes and the configuration of the access node is done and the databases have been created in the configuration proccess in the access node (as we show above). We can continue in inserting the data into the databases. For this proccess we use the modified TSBS script that can be found in [load_timescaledb.sh](./data_load/load_timescaledb.sh) (We modified the --do-create-db=false and the --replication-factor=1).
+After the configuration of the data nodes and the configuration of the access node is done and the databases have been created in the configuration proccess in the access node (as we show above). We can continue in inserting the data into the databases. For this proccess we use the modified TSBS script that can be found in [load_timescaledb.sh](./data_load/load_timescaledb.sh) (We modified the `--do-create-db=false` and the `--replication-factor=1`).
 
 ```
 cd ~/TimeseriesDB_Benchmarks/multi_node/data_load
