@@ -16,4 +16,7 @@ The installation proccess is found in the single_node ReadMe
 
 ### [Multi Node Setup](./multi_node/README.md)
 
+
 The installation proccess is found in the multi_node ReadMe
+
+![](https://i.imgur.com/KN8YUhy.png)
