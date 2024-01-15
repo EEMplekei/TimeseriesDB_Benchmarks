@@ -1,5 +1,5 @@
 # Multi-Node Node Setup:
-
+![](https://i.imgur.com/KN8YUhy.png)
 
 ## VM Specs:
 - 3 VMs
