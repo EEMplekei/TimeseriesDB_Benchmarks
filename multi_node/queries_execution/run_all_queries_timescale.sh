@@ -5,7 +5,13 @@ RESET='\033[0m'
 DATABASE_SIZES=("small" "medium" "large")
 QUERY_COUNTS=("1" "10")
 
-echo -e "${GREEN}Running all queries for timescaledb. This will take a while...\n"
+echo -e "${GREEN}Starting proccess for running all queries for timescaledb. First starting with clearing caches.\n"
+
+bash clear_caches/timescale_clr_cache.sh
+ssh ubuntu@10.0.0.2 "bash timescale_clr_cache.sh"
+ssh ubuntu@10.0.0.3 "bash timescale_clr_cache.sh"
+
+echo -e "${GREEN}Caches cleared. Running all queries for timescaledb. This will take a while...\n"
 
 for SIZE in "${DATABASE_SIZES[@]}"; do
 	for COUNT in "${QUERY_COUNTS[@]}"; do
