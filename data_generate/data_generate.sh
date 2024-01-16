@@ -1,16 +1,15 @@
 #!/bin/bash
 
 # Ensure generator is available
-# EXE_FILE_NAME=${EXE_FILE_NAME:-$(which tsbs_generate_data)}
-# if [[ -z "${EXE_FILE_NAME}" ]]; then
-#     echo "tsbs_generate_data not available. It is not specified explicitly and not found in \$PATH"
-#     exit 1
-# fi
+EXE_FILE_NAME=${EXE_FILE_NAME:-$(which tsbs_generate_data)}
+if [[ -z "${EXE_FILE_NAME}" ]]; then
+    echo "tsbs_generate_data not available. It is not specified explicitly and not found in \$PATH"
+    exit 1
+fi
 
 # Data folder
 BULK_DATA_DIR=${BULK_DATA_DIR:- "$(pwd)/iot_data"}
-echo $BULK_DATA_DIR
-exit
+
 # Space-separated list of target DB formats to generate
 FORMATS=${FORMATS:-"timescaledb influx"}
 
