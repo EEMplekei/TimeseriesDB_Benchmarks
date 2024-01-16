@@ -1,0 +1,66 @@
+Run complete after 10 queries with 4 workers (Overall query rate 2.27 queries/sec):
+TimescaleDB average driver driving duration per day:
+min:   633.98ms, med:  1211.39ms, mean:  1734.84ms, max: 2988.54ms, stddev:  1043.73ms, sum:  17.3sec, count: 10
+all queries                                        :
+min:   633.98ms, med:  1211.39ms, mean:  1734.84ms, max: 2988.54ms, stddev:  1043.73ms, sum:  17.3sec, count: 10
+wall clock time: 4.471568sec
+Run complete after 10 queries with 4 workers (Overall query rate 3.41 queries/sec):
+TimescaleDB average driver driving session without stopping per day:
+min:   651.74ms, med:  1006.46ms, mean:  1088.66ms, max: 1872.64ms, stddev:   427.88ms, sum:  10.9sec, count: 10
+all queries                                                        :
+min:   651.74ms, med:  1006.46ms, mean:  1088.66ms, max: 1872.64ms, stddev:   427.88ms, sum:  10.9sec, count: 10
+wall clock time: 2.982022sec
+Run complete after 10 queries with 4 workers (Overall query rate 5.79 queries/sec):
+TimescaleDB average load per truck model per fleet:
+min:   324.77ms, med:   652.06ms, mean:   669.85ms, max: 1021.66ms, stddev:   297.93ms, sum:   6.7sec, count: 10
+all queries                                       :
+min:   324.77ms, med:   652.06ms, mean:   669.85ms, max: 1021.66ms, stddev:   297.93ms, sum:   6.7sec, count: 10
+wall clock time: 1.780240sec
+Run complete after 10 queries with 4 workers (Overall query rate 2.09 queries/sec):
+TimescaleDB average vs projected fuel consumption per fleet:
+min:  1352.45ms, med:  1446.02ms, mean:  1648.39ms, max: 2827.52ms, stddev:   426.37ms, sum:  16.5sec, count: 10
+all queries                                                :
+min:  1352.45ms, med:  1446.02ms, mean:  1648.39ms, max: 2827.52ms, stddev:   426.37ms, sum:  16.5sec, count: 10
+wall clock time: 4.825205sec
+Run complete after 10 queries with 4 workers (Overall query rate 4.72 queries/sec):
+TimescaleDB truck breakdown frequency per model:
+min:   535.97ms, med:   702.50ms, mean:   766.53ms, max: 1175.04ms, stddev:   222.00ms, sum:   7.7sec, count: 10
+all queries                                    :
+min:   535.97ms, med:   702.50ms, mean:   766.53ms, max: 1175.04ms, stddev:   222.00ms, sum:   7.7sec, count: 10
+wall clock time: 2.160905sec
+Run complete after 10 queries with 4 workers (Overall query rate 3.46 queries/sec):
+TimescaleDB daily truck activity per fleet per model:
+min:   712.06ms, med:   847.71ms, mean:  1047.40ms, max: 1629.44ms, stddev:   342.90ms, sum:  10.5sec, count: 10
+all queries                                         :
+min:   712.06ms, med:   847.71ms, mean:  1047.40ms, max: 1629.44ms, stddev:   342.90ms, sum:  10.5sec, count: 10
+wall clock time: 2.933317sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.05 queries/sec):
+TimescaleDB trucks with high load:
+min: 62881.79ms, med: 65325.06ms, mean: 66529.28ms, max: 72916.99ms, stddev:  2970.75ms, sum: 665.3sec, count: 10
+all queries                      :
+min: 62881.79ms, med: 65325.06ms, mean: 66529.28ms, max: 72916.99ms, stddev:  2970.75ms, sum: 665.3sec, count: 10
+wall clock time: 198.884656sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.05 queries/sec):
+TimescaleDB last location per truck:
+min: 67094.53ms, med: 69021.70ms, mean: 70281.32ms, max: 76529.66ms, stddev:  2591.74ms, sum: 702.8sec, count: 10
+all queries                        :
+min: 67094.53ms, med: 69021.70ms, mean: 70281.32ms, max: 76529.66ms, stddev:  2591.74ms, sum: 702.8sec, count: 10
+wall clock time: 211.689243sec
+Run complete after 10 queries with 4 workers (Overall query rate 8.89 queries/sec):
+TimescaleDB trucks with longer driving sessions:
+min:   267.58ms, med:   411.98ms, mean:   424.36ms, max:  581.89ms, stddev:   125.01ms, sum:   4.2sec, count: 10
+all queries                                    :
+min:   267.58ms, med:   411.98ms, mean:   424.36ms, max:  581.89ms, stddev:   125.01ms, sum:   4.2sec, count: 10
+wall clock time: 1.163041sec
+Run complete after 10 queries with 4 workers (Overall query rate 0.05 queries/sec):
+TimescaleDB trucks with low fuel:
+min: 63954.94ms, med: 65861.63ms, mean: 66259.35ms, max: 70017.02ms, stddev:  1949.46ms, sum: 662.6sec, count: 10
+all queries                     :
+min: 63954.94ms, med: 65861.63ms, mean: 66259.35ms, max: 70017.02ms, stddev:  1949.46ms, sum: 662.6sec, count: 10
+wall clock time: 200.235047sec
+Run complete after 10 queries with 4 workers (Overall query rate 29.25 queries/sec):
+TimescaleDB stationary trucks:
+min:    39.62ms, med:   110.70ms, mean:   118.83ms, max:  204.16ms, stddev:    60.17ms, sum:   1.2sec, count: 10
+all queries                  :
+min:    39.62ms, med:   110.70ms, mean:   118.83ms, max:  204.16ms, stddev:    60.17ms, sum:   1.2sec, count: 10
+wall clock time: 0.367656sec
