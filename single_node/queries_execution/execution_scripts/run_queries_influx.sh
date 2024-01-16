@@ -12,7 +12,7 @@ DATASET_SIZE=${2};
 DB_NAME="benchmark_${DATASET_SIZE}";
 
 # Default queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${QUERY_TEST}"}
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/queries_generate/queries/${QUERY_TEST}"}
 MAX_QUERIES=${MAX_QUERIES:-"0"}
 # How many concurrent worker would run queries - match num of cores, or default to 4
 NUM_WORKERS=${NUM_WORKERS:-$(grep -c ^processor /proc/cpuinfo 2> /dev/null || echo 4)}

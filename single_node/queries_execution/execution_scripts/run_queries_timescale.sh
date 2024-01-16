@@ -18,7 +18,7 @@ DATABASE_PORT=5432;
 DATABASE_PASSWORD="password";
 
 # Queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${QUERY_TEST}"};
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/queries_generate/queries/${QUERY_TEST}"};
 
 # How many queries would be run
 MAX_QUERIES=${MAX_QUERIES:-"0"}
