@@ -42,5 +42,5 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --workers=${NUM_WORKERS} \
                                 --batch-size=${BATCH_SIZE} \
                                 --reporting-period=${REPORTING_PERIOD} \
-				--replication-factor=${REPLICATION_FACTOR} \
+				                --replication-factor=${REPLICATION_FACTOR} \
                                 --urls=http://enterprise-data-B:8086,http://enterprise-data-C:8086| tee ~/TimeseriesDB_Benchmarks/multi_node/performance/write/influx_${DATASET_SIZE}.out
