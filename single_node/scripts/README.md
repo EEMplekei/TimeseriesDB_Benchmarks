@@ -15,7 +15,7 @@ This script retrieves the disk size of a database ,specified by the parameters. 
 ```
 python3 graph_write_performance
 ```
-This script retrieves the performance of dataset insertion on databases. Specifically it keeps track of the number of metrics and rows per second that each database can achieve. Finally these benchmarks will be ploted in a graph (one for metrics/sec and one for rows/sec)
+This script retrieves the performance of dataset insertion on databases. Specifically it keeps track of the number of metrics and rows per second that each database can achieve. Finally these benchmarks will be plotted in a graph (one for metrics/sec and one for rows/sec)
 
 ## parse_file:
 This is a helper function that takes a single performance file and extracts the mean value of each query time.

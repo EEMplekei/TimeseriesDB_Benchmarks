@@ -193,7 +193,7 @@ if(database=="influx"):
         data_bytes_C= execute_ssh_command("ubuntu", "10.0.0.3", full_data_dir, sudo_password_C)
         data_bytes_B = int(data_bytes_B)
         data_bytes_C = int(data_bytes_C)
-        write_data_to_file(database + "-" + size, "B_size:"+str(data_bytes_B)+", "+ "C_size:"+str(data_bytes_C))
+        write_data_to_file(database + "-" + size, "B_size="+str(data_bytes_B)+", "+ "C_size="+str(data_bytes_C))
 
     except ValueError:
         raise ValueError(f"Something goes worng")
@@ -205,4 +205,4 @@ elif(database=="timescale"):
     data_bytes_C= execute_ssh_command("ubuntu", "10.0.0.3", full_data_dir_C, sudo_password_C)
     data_bytes_B = int(data_bytes_B)
     data_bytes_C = int(data_bytes_C)
-    write_data_to_file(database + "-" + size, "B_size:"+str(data_bytes_B)+", "+ "C_size:"+str(data_bytes_C))
+    write_data_to_file(database + "-" + size, "B_size="+str(data_bytes_B)+", "+ "C_size="+str(data_bytes_C))
