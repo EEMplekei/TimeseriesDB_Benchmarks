@@ -1,6 +1,6 @@
-influx-small:B_size:58738821, C_size:92262997
-influx-medium:B_size:308582359, C_size:307806333
-influx-large:B_size:765195867, C_size:759452735
-timescale-small:B_size:584610595, C_size:586814243
-timescale-medium:B_size:2880172835, C_size:2889368355
-timescale-large:B_size:8622977827, C_size:8664781603
+influx-small:B_size=51318481, C_size=50684404
+influx-medium:B_size=271227100, C_size=270229075
+influx-large:B_size=729928735, C_size=722108592
+timescale-small:B_size=584610595, C_size=586814243
+timescale-medium:B_size=2880172835, C_size=2889368355
+timescale-large:B_size=8622977827, C_size=8664781603
