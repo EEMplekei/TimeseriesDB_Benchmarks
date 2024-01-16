@@ -30,7 +30,7 @@ function run_file()
     EXTENSION="${DATA_FILE_NAME##*.}"
     NO_EXT_DATA_FILE_NAME="${DATA_FILE_NAME%.*}"
 
-    OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out"};
+    OUT_FULL_FILE_NAME=${OUT_FULL_FILE_NAME:-"/home/ubuntu/TimeseriesDB_Benchmarks/multi_node/performance/queries/influx/${QUERY_TEST}/influx_${QUERY_TEST}_${DATASET_SIZE}.out"};
 
     if [ "${EXTENSION}" == "gz" ]; then
         GUNZIP="gunzip"
@@ -42,6 +42,7 @@ function run_file()
     cat $FULL_DATA_FILE_NAME \
         | $GUNZIP \
         | $EXE_FILE_NAME \
+            --urls=http://enterprise-data-B:8086,http://enterprise-data-C:8086 \
             --db-name $DB_NAME \
             --max-queries $MAX_QUERIES \
             --workers $NUM_WORKERS >> $OUT_FULL_FILE_NAME
