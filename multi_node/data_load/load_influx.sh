@@ -12,7 +12,8 @@ DB_NAME="benchmark_${DATASET_SIZE}";
 
 # Load parameters - common
 DATA_FILE_NAME=${DATA_FILE_NAME:-data_influx_${DATASET_SIZE}.dat.gz}
-DATABASE_PORT=${DATABASE_PORT:-8086}
+DATABASE_PORT=${DATABASE_PORT:-8091}
+REPLICATION_FACTOR=${REPLICATION_FACTOR:-1}
 
 if [ -f ${DATA_FILE_NAME} ]; then
     echo "Data file ${DATA_FILE_NAME} not found"
@@ -32,6 +33,8 @@ mkdir -p ~/TimeseriesDB_Benchmarks/multi_node/performance/write
 
 # Remove previous database
 curl -X POST http://${DATABASE_HOST}:${DATABASE_PORT}/query?q=drop%20database%20${DB_NAME}
+curl -X POST http://enterprise-data-B:8086/query?q=drop%20database%20${DB_NAME}
+curl -X POST http://enterprise-data-C:8086/query?q=drop%20database%20${DB_NAME}
 # Load new data
 cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --db-name=${DB_NAME} \
@@ -39,4 +42,5 @@ cat ${DATA_FILE} | gunzip | $EXE_FILE_NAME \
                                 --workers=${NUM_WORKERS} \
                                 --batch-size=${BATCH_SIZE} \
                                 --reporting-period=${REPORTING_PERIOD} \
-                                --urls=http://${DATABASE_HOST}:${DATABASE_PORT} | tee ~/TimeseriesDB_Benchmarks/multi_node/performance/write/influx_${DATASET_SIZE}.out
+				--replication-factor=${REPLICATION_FACTOR} \
+                                --urls=http://enterprise-data-B:8086,http://enterprise-data-C:8086| tee ~/TimeseriesDB_Benchmarks/multi_node/performance/write/influx_${DATASET_SIZE}.out
