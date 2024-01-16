@@ -22,12 +22,12 @@ if(database not in ["influx", "timescale"]):
     sys.exit(1)
 
 #timescale
-    nodeb size
-    nodec size
-    ssh username@host "command"
+    #nodeb size
+    #nodec size
+    #ssh username@host "command"
 #inlux
-    nodebsize
-    nodec size
+    #nodebsize
+    #nodec size
 
 if(database=="influx"):
     data_dir = '/var/lib/influxdb/data/'
@@ -89,6 +89,14 @@ def findBytesFromDatabaseFolderList(dir_path):
     data_bytes_str = output.split('\n')[-2].split('\t')[0]
     return data_bytes_str
 
+def execute_ssh_command(username, host ,dir_path):
+    global sudo_password
+    command = 'du --bytes ' + dir_path
+    full_command = 'ssh {}@{} "{}"'.format(username, host, 'echo %s|sudo -S %s' % (sudo_password, command))
+    output = subprocess.check_output(full_command, shell=True).decode()
+    data_bytes_str = output.split('\n')[-2].split('\t')[0]
+    return data_bytes_str
+
 def extract_numeric_and_string_parts(input_string):
     # Use a regular expression to separate numeric and string parts
     match = re.match(r'([0-9.]+)([a-zA-Z]+)', input_string)
@@ -138,7 +146,7 @@ if(database=="influx"):
             raise FileNotFoundError("Error: The database benchmark_" + size + " does not exist. Please create it before running this script.")
 
         # Proceed with your existing code
-        data_bytes = findBytesFromDatabaseFolderList(full_data_dir)
+        data_bytes = execute_ssh_command(ubuntu, 10.0.0.2, full_data_dir)
         write_data_to_file(database + "-" + size, str(data_bytes))
 
     except Exception as e:
