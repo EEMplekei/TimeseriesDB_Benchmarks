@@ -1,0 +1,15 @@
+time,per. metric/s,metric total,overall metric/s,per. row/s,row total,overall row/s
+1705400498,632460.23,6.324941E+06,632460.23,79995.72,8.000000E+05,79995.72
+1705400508,664094.41,1.296613E+07,648277.19,83996.85,1.640000E+06,81996.27
+1705400518,426924.64,1.723546E+07,574494.28,53998.94,2.180000E+06,72663.99
+1705400528,632320.60,2.355830E+07,588949.82,80004.75,2.980000E+06,74499.04
+1705400538,585194.29,2.941058E+07,588198.69,73995.74,3.720000E+06,74398.38
+1705400548,806478.77,3.747470E+07,624575.55,102008.37,4.740000E+06,78999.65
+[worker 0] backoffs took a total of 0.000000sec of runtime
+[worker 3] backoffs took a total of 0.000000sec of runtime
+[worker 2] backoffs took a total of 0.000000sec of runtime
+[worker 1] backoffs took a total of 0.000000sec of runtime
+
+Summary:
+loaded 40995823 metrics in 64.310sec with 4 workers (mean rate 637470.88 metrics/sec)
+loaded 5185385 rows in 64.310sec with 4 workers (mean rate 80630.94 rows/sec)
