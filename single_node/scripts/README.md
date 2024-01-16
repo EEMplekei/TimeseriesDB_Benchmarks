@@ -1,5 +1,5 @@
-# Scripts Explanation:
-This folder contains python scripts mainly for ploting the benchmarks about the two compared databases. In this file we will provide a brief explanation for each script and its utility.
+# Single Node Scripts Explanation:
+This folder contains python scripts mainly for plotting the benchmarks about the two compared databases. In this file we will provide a brief explanation for each script and its utility. These scripts use the performance data for the single node deployment.
 
 ## measure_db_size_parametrizable:
 * To run this script, execute the following command:

@@ -29,7 +29,7 @@ bar_width = 0.35
 index = range(len(query_types))
 fig, ax = plt.subplots(3, 1)
 fig.suptitle(
-	f'Comparison of timescale and influx for each query type, 10 queries')
+	f'Single node deployment - Comparison of timescale and influx for each query type, 10 queries')
 fig.subplots_adjust()
 
 for db_size, i in zip(dataset_size, range(3)):

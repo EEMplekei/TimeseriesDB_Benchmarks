@@ -6,13 +6,19 @@ import sys
 import re
 import os
 from psycopg2 import OperationalError
+sudo_password = 'GsGLKgki5V'
 
+if(len(sys.argv)!=3):
+	print("Error: Please enter the correct number of arguments.")
+	sys.exit(1)
+    
 database = sys.argv[1]
 size = sys.argv[2]
-if(size!="small" and size!="medium" and size!="large"):
+
+if(size not in ["small", "medium", "large"]):
     print("Error: Please enter a valid size.")
     sys.exit(1)
-if(database!="influx" and database!="timescale"):
+if(database not in ["influx", "timescale"]):
     print("Error: Please enter a valid database name.")
     sys.exit(1)
     
@@ -67,7 +73,7 @@ elif(database=="timescale"):
             cur.close()
         if conn:
             conn.close()
-sudo_password = 'GsGLKgki5V'
+
 
 def findBytesFromDatabaseFolderList(dir_path):
     global sudo_password

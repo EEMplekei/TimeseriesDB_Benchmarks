@@ -33,6 +33,8 @@ for query_count in nbr_queries:
 # Creating subplots
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 6))
 
+fig.suptitle("Single node deployment - Execution time scaling with dataset size")
+
 # Plotting lines for 1_queries
 for db, values in results_dictionary['1_queries'].items():
     ax1.plot(list(map(lambda x: x / 1000, values)),
@@ -41,7 +43,7 @@ for db, values in results_dictionary['1_queries'].items():
 # Add labels directly on the data points
 for db, values in results_dictionary['1_queries'].items():
     for x, y in enumerate(values):
-        ax1.text(x, y/1000, f"{y/1000:.2f} s", ha='center', va='bottom')
+        ax1.text(x, y/1000+(15 if db == 'timescale' else -30), f"{y/1000:.2f} s", ha='center', va='bottom')
 
 ax1.set_title('Mean execution time (1 Query per query type)')
 ax1.set_xlabel('Dataset Size')
@@ -57,7 +59,7 @@ for db, values in results_dictionary['10_queries'].items():
 
 for db, values in results_dictionary['10_queries'].items():
     for x, y in enumerate(values):
-        ax2.text(x, y/1000, f"{y/1000:.2f} s", ha='center', va='bottom')
+        ax2.text(x, y/1000+(15 if db == 'timescale' else -30), f"{y/1000:.2f} s", ha='center', va='bottom')
 
 ax2.set_title('Mean execution time (10 Query per query type)')
 ax2.set_xlabel('Dataset Size')

@@ -42,7 +42,7 @@ try:
 
         ax.set_xlabel('Category')
         ax.set_ylabel('Size (G)')
-        ax.set_title('Comparison of timescale and influx database disk sizes')
+        ax.set_title('Single node deployment - Comparison of timescale and influx database disk sizes')
         ax.set_xticks([i + bar_width / 2 for i in index])
         ax.set_xticklabels(categories)
         ax.legend()
