@@ -14,7 +14,7 @@ if ! [[ ${1} =~ ^[0-9]+$ ]]  || ((${1} <= 0)); then
 fi
 
 # Queries folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/queries_generate/queries/${1}_queries"}
+BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/queries_generate/queries/${1}_queries"}
 TIMESCALE_DATA_DIR="${BULK_DATA_DIR}/queries_timescaledb"
 INFLUX_DATA_DIR="${BULK_DATA_DIR}/queries_influx"
 
