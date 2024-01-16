@@ -1,17 +1,18 @@
 #!/bin/bash
 
 # Ensure generator is available
-EXE_FILE_NAME=${EXE_FILE_NAME:-$(which tsbs_generate_data)}
-if [[ -z "${EXE_FILE_NAME}" ]]; then
-    echo "tsbs_generate_data not available. It is not specified explicitly and not found in \$PATH"
-    exit 1
-fi
+# EXE_FILE_NAME=${EXE_FILE_NAME:-$(which tsbs_generate_data)}
+# if [[ -z "${EXE_FILE_NAME}" ]]; then
+#     echo "tsbs_generate_data not available. It is not specified explicitly and not found in \$PATH"
+#     exit 1
+# fi
 
 # Data folder
-BULK_DATA_DIR=${BULK_DATA_DIR:-"/home/ubuntu/TimeseriesDB_Benchmarks/single_node/iot_data"}
-
+BULK_DATA_DIR=${BULK_DATA_DIR:- "$(pwd)/iot_data"}
+echo $BULK_DATA_DIR
+exit
 # Space-separated list of target DB formats to generate
-FORMATS=${FORMATS:-"influx timescaledb"}
+FORMATS=${FORMATS:-"timescaledb influx"}
 
 # Number of hosts to generate data about
 SCALE=${SCALE:-"800"}
@@ -39,7 +40,7 @@ chmod a+rwx ${BULK_DATA_DIR}
 pushd ${BULK_DATA_DIR}
 set -eo pipefail
 
-# Loop over all requested target formats and generate data
+# Lo/home/ubuntu/TimeseriesDB_Benchmarks/data_generate/iot_dataop over all requested target formats and generate data
 for FORMAT in ${FORMATS}; do
 
     for TS_END in ${TS_ENDS}; do
