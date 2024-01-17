@@ -40,7 +40,7 @@ for db_size, i in zip(dataset_size, range(3)):
 	bar2 = ax[i].bar([i + bar_width for i in index],
 					 list(map(lambda x: x/1000, results[('timescale', db_size, '10')])), bar_width, label='timescale', color=color_map['timescale'])
 	
-	ax[i].set_yscale('log')
+	# ax[i].set_yscale('log')
 	ax[i].set_xlabel('Query type')
 	ax[i].set_ylabel('Execution time (s)')
 	ax[i].set_title(f'{db_size} dataset')
