@@ -1,0 +1,256 @@
+lts show us that the two timeseries database systems execute queries differently. We can see query types that have very large differences in execution speed.
+Beneath is a brief explanation of each query type label and the corresponding SQL query. This will assist us in understanding why some queries are faster than others on each database system.
+
+
+
+=================================================
+
+average driver driving duration per day - avg-daily-driving-duration
+Calculate average daily driving duration per driver
+`SELECT count("mv")/6 as "hours driven" 
+		FROM (SELECT mean("velocity") as "mv" 
+		 FROM "readings" 
+		 WHERE time > '%s' AND time < '%s' 
+		 GROUP BY time(10m),"fleet", "name", "driver") 
+		WHERE time > '%s' AND time < '%s' 
+		GROUP BY time(1d),"fleet", "name", "driver"`
+
+
+This SQL query calculates the total hours driven per day for each unique combination of fleet, name, and driver based on velocity readings from the "readings" table. The query involves aggregations (mean and sum) and grouping by time, fleet, name, and driver and the use of time intervals (10 minutes and 1 day) in both the inner and main queries contributes to the complexity.
+
+
+
+=================================================
+
+
+average driver driving session without stopping per day - avg-daily-driving-session
+Get trucks which haven't rested for at least 20 mins in the last 4 hours
+WITH driver_status
+		AS (
+			SELECT tags_id, time_bucket('10 mins', TIME) AS ten_minutes, avg(velocity) > 5 AS driving
+			FROM readings
+			GROUP BY tags_id, ten_minutes
+			ORDER BY tags_id, ten_minutes
+			), driver_status_change
+		AS (
+			SELECT tags_id, ten_minutes AS start, lead(ten_minutes) OVER (PARTITION BY tags_id ORDER BY ten_minutes) AS stop, driving
+			FROM (
+				SELECT tags_id, ten_minutes, driving, lag(driving) OVER (PARTITION BY tags_id ORDER BY ten_minutes) AS prev_driving
+				FROM driver_status
+				) x
+			WHERE x.driving <> x.prev_driving
+			)
+		SELECT t.%s, time_bucket('24 hours', start) AS day, avg(age(stop, start)) AS duration
+		FROM tags t
+		INNER JOIN driver_status_change d ON t.id = d.tags_id
+		WHERE t.%s IS NOT NULL
+		AND d.driving = true
+		GROUP BY name, day
+		ORDER BY name, day`
+
+
+This SQL query identifies trucks that haven't rested for at least 20 minutes in the last 4 hours. It utilizes two Common Table Expressions (CTEs) to determine the driving status at 10-minute intervals and identifies the start and stop times of driving sessions. The main query then calculates the average duration of driving sessions per day for trucks meeting the specific condition. For its performance demands, this query involves analytical functions like lead, lag, and aggregations, which can be computationally demanding. Also, the use of time bucketing and calculations based on time intervals may impact performance. Lastly, proper indexing on relevant columns (tags_id, time) is crucial for efficient execution.
+
+
+
+=================================================
+
+average load per truck model per fleet - avg-load
+Calculate average load per truck model per fleet
+`SELECT mean("ml") AS mean_load_percentage 
+		FROM (SELECT "current_load"/"load_capacity" AS "ml" 
+		 FROM "diagnostics" 
+		 GROUP BY "name", "fleet", "model") 
+		GROUP BY "fleet", "model"`
+
+
+This SQL query calculates the average load percentage for each fleet and model based on data from a "diagnostics" table. The main goal is to find the mean load percentage by dividing the "current_load" by the "load_capacity" for each unique combination of "name", "fleet", and "model". For its performance demands, this query involves basic aggregation (mean) and division operations, which are generally efficient. Although, grouping by multiple columns ("name," "fleet," "model") in the inner query may incur some computational cost.
+
+
+
+
+=================================================
+
+average vs projected fuel consumption per fleet - avg-vs-projected-fuel-consumption
+Calculate average vs. projected fuel consumption per fleet
+`SELECT mean("fuel_consumption") AS "mean_fuel_consumption", mean("nominal_fuel_consumption") AS "nominal_fuel_consumption" 
+		FROM "readings" 
+		WHERE "velocity" > 1 
+		GROUP BY "fleet"`
+
+
+
+This SQL query calculates the average fuel consumption and nominal fuel consumption for each fleet, based on data from the "readings" table. The query specifically considers only readings where the velocity is greater than 1. In terms of performance, this query involves basic aggregation functions (mean) on fuel consumption and nominal fuel consumption, which are generally efficient operations and the filtering condition ("velocity" > 1) may reduce the dataset size and improve performance (although in most real world data this condition will not change the dataset size in a significant manner). However, grouping by "fleet" is a key factor in the performance, the impact depends on the size of the dataset and the number of distinct fleets.
+
+
+
+=================================================
+
+
+truck breakdown frequency per model - breakdown-frequency
+Calculate breakdown frequency by truck model
+FROM (SELECT difference("broken_down") AS "state_changed" 
+		 FROM (SELECT floor(2*(sum("nzs")/count("nzs")))/floor(2*(sum("nzs")/count("nzs"))) AS "broken_down" 
+		  FROM (SELECT "model", "status"/"status" AS nzs 
+		   FROM "diagnostics" 
+		   WHERE time >= '%s' AND time < '%s') 
+		  WHERE time >= '%s' AND time < '%s' 
+		  GROUP BY time(10m),"model") 
+		 GROUP BY "model") 
+		WHERE "state_changed" = 1 
+		GROUP BY "model"`,
+
+
+
+
+This SQL query calculates the breakdown frequency for each model based on data from the "diagnostics" table. It involves several nested queries to compute the breakdown state changes and then filters and groups the results accordingly. The query is computationally demanding due to multiple levels of aggregations and nested queries, which can be computationally demanding as well as use of ratios and normalization in the innermost and middle queries which adds complexity to the computation and the fact that there is grouping by time and model, along with filtering based on state changes that also impacts performance.
+
+
+
+
+
+
+=================================================
+
+
+daily truck activity per fleet per model - daily-activity
+Get the number of hours truck has been active (vs. out-of-commission) per day per fleet
+`SELECT count("ms")/144 
+		FROM (SELECT mean("status") AS ms 
+		 FROM "diagnostics" 
+		 WHERE time >= '%s' AND time < '%s' 
+		 GROUP BY time(10m), "model", "fleet") 
+		WHERE time >= '%s' AND time < '%s' AND "ms"<1 
+		GROUP BY time(1d), "model", "fleet"
+
+
+This SQL query calculates the daily activity count for each model and fleet based on data from the "diagnostics" table. It involves aggregating the mean status over 10-minute intervals, filtering the results, and then calculating the count of intervals where the mean status is less than 1 for each day. The query involves aggregating the mean status over 10-minute intervals, which is generally efficient. However, filtering based on time ranges and status as well as grouping by time, model, and fleet adds computational load.
+
+
+
+=================================================
+
+
+trucks with high load
+Fetch trucks with high current load (over 90% load capacity)
+`SELECT "name", "driver", "current_load", "load_capacity" 
+		FROM (SELECT  "current_load", "load_capacity" 
+		 FROM "diagnostics" WHERE fleet = '%s' 
+		 GROUP BY "name","driver" 
+		 ORDER BY "time" DESC 
+		 LIMIT 1) 
+		WHERE "current_load" >= 0.9 * "load_capacity" 
+		GROUP BY "name" 
+		ORDER BY "time" DESC`
+
+
+This SQL query retrieves information about instances where the current load is at least 90% of the load capacity for each driver in a specified fleet. It involves selecting the latest load-related data for each driver in the fleet and filtering the results based on the load condition. The inner subquery involves grouping by "name" and "driver," which could have performance implications, depending on the size of the dataset. Grouping and ordering in the main query add additional computational load. Lastly, the condition in the main query involves filtering based on load conditions, which may impact performance. Overall, it a generally demanding query.
+
+
+
+
+=================================================
+
+
+last location per truck - last-loc
+Fetch real-time (i.e. last) location of each truck
+`SELECT "latitude", "longitude" 
+		FROM "readings" 
+		WHERE "fleet"='%s' 
+		GROUP BY "name","driver" 
+		ORDER BY "time" 
+		LIMIT 1`
+
+
+This SQL query retrieves the last known latitude and longitude for each unique combination of "name" and "driver" in a specified fleet based on data from the "readings" table. It involves filtering and ordering the results to obtain the most recent location information. Filtering and grouping by "name" and "driver" may have performance implications, depending on the size of the dataset. In addition, ordering by time and limiting the result to one row add some computational load, especially when dealing with large datasets.
+
+
+=================================================
+
+
+trucks with longer driving sessions - long-driving-sessions
+Get trucks which haven't rested for at least 20 mins in the last 4 hours
+`SELECT "name","driver" 
+		FROM(SELECT count(*) AS ten_min 
+		 FROM(SELECT mean("velocity") AS mean_velocity 
+		  FROM readings 
+		  WHERE "fleet" = '%s' AND time > '%s' AND time <= '%s' 
+		  GROUP BY time(10m),"name","driver") 
+		 WHERE "mean_velocity" > 1 
+		 GROUP BY "name","driver") 
+		WHERE ten_min_mean_velocity > %d`
+
+
+This SQL query identifies trucks in a specified fleet that haven't rested for at least 20 minutes within the last 4 hours. It focuses on trucks where the mean velocity is consistently greater than 1 over 10-minute intervals. The nested aggregations and filtering based on velocity conditions add complexity to the query and grouping by time, "name," and "driver" in the innermost query may have performance implications.
+
+
+=================================================
+
+trucks with low fuel - low-fuel
+Fetch all trucks with low fuel (less than 10%)
+`SELECT "name", "driver", "fuel_state" 
+		FROM "diagnostics" 
+		WHERE "fuel_state" <= 0.1 AND "fleet" = '%s' 
+		GROUP BY "name" 
+		ORDER BY "time" DESC 
+		LIMIT 1`
+
+
+
+This SQL query retrieves information about trucks in a specified fleet with low fuel states. It selects the most recent records where the fuel state is less than or equal to 10% and groups the results by the truck's name. The query aims to identify trucks that are currently low on fuel within the specified fleet. The query involves filtering and grouping by "name," which may have performance implications, depending on the size of the dataset. In addition, ordering by time and limiting the result to one row add some computational load. 
+
+
+
+
+
+=================================================
+stationary trucks - stationary-trucks
+Fetch all trucks that are stationary (low avg velocity in last 10 mins)
+`SELECT "name", "driver" 
+		FROM(SELECT mean("velocity") as mean_velocity 
+		 FROM "readings" 
+		 WHERE time > '%s' AND time <= '%s' 
+		 GROUP BY time(10m),"name","driver","fleet"  
+		 LIMIT 1) 
+		WHERE "fleet" = '%s' AND "mean_velocity" < 1 
+		GROUP BY "name"`
+
+
+This SQL query identifies trucks in a specified fleet that have been stationary, with a mean velocity less than 1, during a specific time range. It calculates the mean velocity over 10-minute intervals for each unique combination of "name," "driver," and "fleet" within the given time range, and then filters and groups the results based on the specified conditions. The inner query involves aggregating mean velocity and grouping by time, "name," "driver," and "fleet," which are performance demanding and the main query involves filtering based on fleet and mean velocity condition and further grouping by "name," which adds computational load.
+
+
+
+
+=================================================
+
+SINDIASTIKI ANALYSIS
+
+
+Comparing the provided queries in terms of computational difficulty is challenging without specific details about the database schema, indexing, and the size of the datasets. However, I can provide a general sense of their complexity based on the operations involved:
+
+1. **Most Complex:**
+   - **breakdown-frequency:** This query involves nested aggregations, normalization, and state change detection. The complexity of the nested operations and the use of window functions make it potentially more demanding.
+
+2. **Moderately Complex:**
+   - **long-driving-sessions:** This query involves nested aggregations, filtering based on velocity conditions, and grouping. The nested structure and the use of velocity conditions add a moderate level of complexity.
+
+   - **high load:** This query involves subqueries, grouping, and ordering. The filtering based on load conditions and the ordering operation contribute to its complexity.
+
+   - **stationary-trucks:** This query involves aggregating mean velocity, filtering, and grouping. The use of aggregations and grouping by multiple columns adds a moderate level of complexity.
+
+3. **Moderate Complexity:**
+   - **avg-daily-driving-session:** This query involves aggregations, window functions, and grouping. The use of window functions for identifying driving sessions and subsequent aggregations contribute to the complexity.
+
+   - **avg-vs-projected-fuel-consumption:** This query involves aggregations of fuel consumption metrics. While the operations are relatively straightforward, the complexity depends on the size of the dataset.
+
+   - **low-fuel:** This query involves filtering, grouping, and ordering. The filtering based on fuel conditions and ordering contribute to its complexity.
+
+4. **Least Complex:**
+   - **avg-load:** This query involves basic aggregations and grouping. The use of mean calculations on load metrics makes it relatively straightforward.
+
+   - **daily-activity:** This query involves aggregations and grouping for daily activity calculations. The operations are standard, and the complexity depends on the size of the dataset.
+
+   - **last-loc:** This query involves filtering, grouping, and ordering for obtaining the last known location. The operations are standard, and the complexity depends on the size of the dataset.
+
+   - **low-fuel:** This query involves filtering, grouping, and ordering. The filtering based on fuel conditions and ordering contribute to its complexity.
+
