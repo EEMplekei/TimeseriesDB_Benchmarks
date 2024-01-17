@@ -1,3 +1,4 @@
+P G
 DATA GENERATION
 
 In the data generation process, we employed the `tsbs_generate_data` script provided by TSBS. Our initial decision aimed at creating three distinct datasets, intending to assess how the two databases would handle variations in dataset sizes. These datasets consist of a small dataset sized at 1GB, a medium dataset sized at 5GB, and a large dataset measuring 15GB.
