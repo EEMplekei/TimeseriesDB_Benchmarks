@@ -6,7 +6,7 @@ This folders contains the scripts for generating timeseries queries using `tsbs_
 
 ## Prerequisites
 
-- [tsbs_generate_queries](https://github.com/timescale/tsbs) must be installed and available in your system. It comes with TSBS package, whose installation is in the [single_node README](https://github.com/EEMplekei/TimeseriesDB_Benchmarks/tree/main/single_node)
+- [tsbs_generate_queries](https://github.com/timescale/tsbs) must be installed and available in your system. It comes with TSBS package, whose installation is in the [single_node README](../single_node/README.md)
 
 ## Usage
 
@@ -41,5 +41,3 @@ A folder named _queries_ is generated containing all the queries for the two dat
       - `small/`: Subfolder for small-sized dataset.
       - `medium/`: Subfolder for medium-sized dataset.
       - `large/`: Subfolder for large-sized dataset.
-
-

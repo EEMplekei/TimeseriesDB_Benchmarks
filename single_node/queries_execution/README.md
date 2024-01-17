@@ -10,26 +10,37 @@ This folder contains scripts and tools for benchmarking two popular timeseries d
 
 ## Prerequisites
 
-Queries should be generated beforehand using the scripts in [queries_generate](https://github.com/EEMplekei/TimeseriesDB_Benchmarks/tree/main/single_node/queries_generate) folder. If now the execution scripts will fail.
+Queries should be generated beforehand using the scripts [here](../../queries_generate). If now the execution scripts will fail.
 
 ## Running Benchmark
 
-* To run the benchmark, execute the following commands:
+* To run a single benchmark, execute the following commands:
 
 ```bash
 bash execution_scripts/run_queries_{timeseries_database}.sh {query_size} {db_size}
 ```
+> [!Note]
+> You do not have to run the above script because the scripts stated below call the above script for all datasets and query type testing.
+
 - {timeseries_database} : 
-- {query_size}: size of the generated query count. The script in [queries_generate](https://github.com/EEMplekei/TimeseriesDB_Benchmarks/tree/main/single_node/queries_generate) generate default values of 1, 10, 100 and 100 and thus these values can be *1_queries*, *10_queries* or *100_queries*.
+- {query_size}: size of the generated query count. The script in [queries_generate](../../queries_generate/generate_all_queries.sh) generate default values of 1 and 10thus these values can be *1_queries*, *10_queries*.
 - {db_size} The size of the database dataset. Should be *small*, *medium* or *large*
+
+### Run all Influx Queries
 
 To run all influx queries all you have  to do is execute the `run_all_queries_influx.sh` bash script which takes care of all the calls of the `execution_scripts/run_queries_influx.sh` with the correct parameters. It also clears the cache between each call so that prior queries do not affect the performance of subsequent calls
 ```bash
 bash run_all_queries_influx.sh
 ```
 
+### Run all Timescale Queries
+
 The same applies for scripts `run_smallmedium_queries_timescale.sh` and `run_smallmedium_large_timescale.sh`.
----
+
+```bash
+bash run_smallmedium_queries_timescale.sh
+bash run_smallmedium_large_timescale.sh
+```
 
 ## Additional Notes
 

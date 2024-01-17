@@ -11,13 +11,13 @@
 
 ### Updating
 
-```
+```bash
 sudo apt update
 sudo apt upgrade
 ```
 
 To any popups we select OK
-```
+```bash
 sudo reboot
 ```
 	
@@ -26,13 +26,13 @@ Now the kernel is version linux 5.15.0-89-generic
 ### Install InfluxDB
 Source -> https://docs.influxdata.com/influxdb/v1/introduction/install/
 		
-```
+```bash
 wget -q https://repos.influxdata.com/influxdata-archive_compat.key
 echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
 echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 
-```
+```bash
 sudo apt-get update && sudo apt-get install influxdb
 sudo service influxdb start
 ```
@@ -40,162 +40,161 @@ sudo service influxdb start
 ### Install PostgressDB:
 Source -> https://docs.timescale.com/self-hosted/latest/install/installation-linux/
 
-```
+```bash
 sudo apt install gnupg postgresql-common apt-transport-https lsb-release wget
 ```
 
-```
+```bash
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 ```
 
 Press Enter
 
-```
+```bash
 echo "deb https://packagecloud.io/timescale/timescaledb/ubuntu/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescaledb.list
 ```
 
 
-```
+```bash
 wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg
 ```
 
-```
+```bash
 sudo apt update
 sudo apt upgrade
 ```
 
-```
+```bash
 sudo apt install timescaledb-2-postgresql-14
 ```
 
-```
+```bash
 sudo timescaledb-tune --quiet --yes
 ```
 
-```
+```bash
 sudo -i -u postgres
 ```
-```
+```bash
 echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/14/main/postgresql.conf
 exit
 ```
-```
+```bash
 sudo /etc/init.d/postgresql restart
 ```
-```
+```bash
 sudo -i -u postgres
 psql
 ```
-```
+```sql
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 ```
-```
+```sql
 ALTER USER postgres WITH PASSWORD 'password';
 ```
 
 ### Install Golang:
-```
+```bash
 sudo apt update
 sudo apt install golang-go
 ```
 		
 ### Install TSBS:
-```
+```bash
 sudo apt install make
 ```
 
-```
+```bash
 sudo apt install golang-golang-x-tools
 ```
 
-```
+```bash
 go install github.com/timescale/tsbs@latest
 ```
 
-```
+```bash
 cd go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/
 ```
 
-```
+```bash
 sudo make all
 ```
 
 
-```
+```bash
 echo "export PATH=$PATH:~/go/pkg/mod/github.com/timescale/tsbs@v0.0.0-20230921131859-37fced794d56/bin" >> ~/.profile
 ```
 
-```
+```bash
 source ~/.profile
 ```
 
 ### Clone this repository into the virtual machine
-To do this, the machine has to have SSH access to the private repository and this can be done by generating an SSH key-pair using `ssh-keygen` and adding it to the repository SSH keys.
-```
+```bash
 cd && git clone git@github.com:EEMplekei/TimeseriesDB_Benchmarks.git
 ```
 ## Generate Data:
-```
-cd ~/TimeseriesDB_Benchmarks/single_node/data_generate
+```bash
+cd ~/TimeseriesDB_Benchmarks/data_generate
 bash data_generate.sh
 ```
 
-Now the data is in the `~/TimeseriesDB_Benchmarks/single_node/iot_data` folder
+Now the data is in the `~/TimeseriesDB_Benchmarks/data_generate/iot_data` folder
 		
 ## Load data into DBs:
 The scripts for loading the data to the databases are in the `~/TimeseriesDB_Benchmarks/single_node/data_load` folder.
 
 We have to create the folder to store the benchmarkings of the insertion phase.
-```
+```bash
 mkdir performance; cd performance; mkdir write; cd write;
 ```
 
 ### Load into Timescale:
 To insert the data (once generated) to timescaledb do the following:
 
-```
+```bash
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
-```
+```bash
 bash load_timescaledb.sh small
 ```
-```
+```bash
 bash load_timescaledb.sh medium
 ```
-```
+```bash
 bash load_timescaledb.sh large
 ```
 
 ### Load into InfluxDB:
 
-```
+```bash
 cd ~/TimeseriesDB_Benchmarks/single_node/data_load
 ```
-```
+```bash
 bash load_influx.sh small
 ```
-```
+```bash
 bash load_influx.sh medium 
 ```
-```
+```bash
 bash load_influx.sh large
 ```
 
-## [Query Generation Proccess](./queries_generate/README.md):
+## [Query Generation Proccess](../queries_generate/README.md):
 
 We will generate the following queries
 - Single queries
 - Repetitive queries (10)
 
 The following command will generate all queries for both influx and timescaledb for every dataset size.
-```
-cd ~/TimeseriesDB_Benchmarks/single_node/queries_generate
+```bash
+cd ~/TimeseriesDB_Benchmarks/queries_generate
 bash generate_queries_all.sh
 ```
 
 ## [Query Execution Proccess](./queries_execution/README.md):
 Scripts for this proccess is in the /query_execution folder. There are 3 scripts (2 for timescaledb and 1 for influx) to run the queries that have already been generated by the previous proccess.
-```
+```bash
 cd ~/TimeseriesDB_Benchmarks/single_node/queries_execution
 ```
 
@@ -203,15 +202,15 @@ cd ~/TimeseriesDB_Benchmarks/single_node/queries_execution
 > If you do not have enough space to have all 6 datasets loaded at one time you have to load them like we did. We first loaded all influx datasets and we run all the queries for them. After that we dropped those databases and loaded the small and medium datasets in timescale and run the queries for that. And finally we dropped the small, medium databases from timescale and loaded the large dataset in timescale and run the queries for the large timescale database seperately (as it takes up the most space in our machine).
 
 Once you have all the datasets in InfluxDB run the following command to execute the queries:
-```
+```bash
 bash run_all_queries_influx.sh
 ```
 After that (make sure you have loaded into Timescale the small, medium dataset) run the following script:
-```
+```bash
 bash run_smallmedium_queries_timescale.sh
 ```
 After that (make sure you have loaded into Timescale the large dataset) run the following script:
-```
+```bash
 bash run_large_queries_timescale.sh
 ```
 

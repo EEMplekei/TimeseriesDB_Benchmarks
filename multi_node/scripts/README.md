@@ -19,7 +19,11 @@ This script retrieves the performance of dataset insertion on databases. Specifi
 
 ## parse_file:
 This is a helper function that takes a single performance file and extracts the mean value of each query time.
-E.g. parse_file(TimeseriesDB_Benchmarks/single_node/performance/queries/10_queries/timescale_10_queries_large.out) returns a list of 11 values, the mean execution time for each query time among all 10 executions of each query
+
+E.g. 
+```bash
+parse_file(TimeseriesDB_Benchmarks/single_node/performance/queries/10_queries/timescale_10_queries_large.out) returns a list of 11 values, the mean execution time for each query time among all 10 executions of each query
+```
 
 ## avg_query_plot:
 * To run this script, execute the following command:
