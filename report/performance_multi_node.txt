@@ -1,0 +1,32 @@
+G
+
+MULTI-NODE
+
+PERFORMANCE EVALUATION: DISK SIZE
+
+After the successful completion of data insertion into the respective database clusters and subsequent result collection, our investigation progressed to a comparative evaluation of the stored database files on individual data nodes.
+
+The storage mechanism driving our InfluxDB cluster is the InfluxDB Time-Structured Merge Tree (TSM), elucidated in the preceding single-node comparison.
+
+The graphical representation below illustrates the distribution of database sizes across the two data nodes. Reiterating our observations, we note a noteworthy reduction in the cumulative database size in InfluxDB compared to TimescaleDB, attributable to InfluxDB's inherent compression. Additionally, a uniform distribution of the database size across the two data nodes is evident.
+
+Similarly, within the TimescaleDB environment, the database size exhibits an equitable distribution across the two data nodes. Nevertheless, the total database size is substantially larger, primarily attributed to TimescaleDB's default absence of data compression, as underscored in our earlier single-node comparison.
+
+[PNG Disk size Multi - Node]
+
+
+
+
+PERFORMANCE EVALUATION: WRITE OPERATIONS
+
+To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we adjusted the replication factor parameter in both scripts to ensure data distribution across all data nodes. Additionally, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup.
+
+Subsequently, we scrutinized the output files generated during the process and constructed performance graphs. A Python script was employed to compare the ingestion rates in terms of rows per second and metrics per second for each database at various sizes. The resulting visual representations are presented below:
+
+In terms of rows rate, InfluxDB demonstrates a peak performance for large dataset sizes, reaching 135.08K rows/sec. In comparison, TimescaleDB exhibits a noticeable reduction at 96.34K rows/sec for the same dataset, reflecting a substantial decrease of 28%. In scenarios involving smaller datasets, the disparity between the two databases diminishes, with TimescaleDB achieving a rate of 82.86K metrics/sec and InfluxDB registering 80.63K metrics/sec. In the context of larger datasets, TimescaleDB has a rate of 101.1K rows/sec while InfluxDB has a rate of 124.85K rows/sec making it 19% faster for the corresponding dataset.
+
+Regarding the metric rate, InfluxDB consistently surpasses TimescaleDB, exhibiting a substantial increment across all datasets. In particular, InfluxDB attains its maximum at 1067.98K metrics/sec for the medium dataset, while TimescaleDB peaks out at 505.48K metrics/sec for the large dataset.
+
+[PNG - WRITE MULTI NODE]
+
+At this juncture, it's reasonable to assert that the insertion speeds of both InfluxDB and TimescaleDB experienced significant enhancements, measured in both rows per second and metrics per second, with the transition to a 3-node cluster. This notable increase in performance metrics stands out when compared to the insertion speeds observed in the single-node configuration.

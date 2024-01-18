@@ -25,10 +25,10 @@ Query Performance each query type (Single Node)
 
 Multi Node setup --> done
 
-Write Performance (Multi Node)
+Write Performance (Multi Node) --> done
 - compare with single node (just mention not plot)
 
-Disk Size (Multi Node)
+Disk Size (Multi Node) --> done
 - compare with single node overhead (just mention not plot)
 
 Query Performance Average 1,10 (Multi Node)
