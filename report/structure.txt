@@ -16,7 +16,7 @@ Write Performance (Single Node) --> done
 
 Disk Size (Single Node) --> done
 
-Query Performance Average 1,10 (Single Node) --> done
+Query Performance Average 1,10 (Single Node)
 - with conclusions
 
 Query Performance each query type (Single Node)
