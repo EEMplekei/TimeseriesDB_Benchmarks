@@ -1,4 +1,4 @@
-G
+G (M check the EDIT in line 14 )
 
 LOOK ONLY ON THE "BETTER" TEXT THAT IS WRITTEN IN A LITTLE MORE FORMAL FASHION
 
@@ -11,8 +11,10 @@ To see how well each database scales out we setup a cluster that consists of 3 n
 BETTER
 To evaluate the scalability of each database, we established a cluster comprising three nodes (virtual machines provided by Okeanos). For each virtual machine, we instantiated an instance of Ubuntu 22.04.03 LTS, running the 5.15.0-91-generic Linux kernel. The virtual environment is equipped with an Intel(R) Xeon(R) CPU E5-2650 v3 operating at 2.3GHz, 4GB of RAM, and a 30GB virtual boot drive. These virtual machines are connected to a virtual private network (VPN) configured through Okeanos. TimescaleDB and Influx will be installed on each node, and we will employ the same datasets used in the single-node experiment (small - 1GB, medium - 5GB, and large - 15GB).
 
-(PNG MULTI)
+EDIT M: (talk about the NAT that was configured for internet access)
+To evaluate the scalability of each database, we established a cluster comprising three nodes (virtual machines provided by Okeanos). For each virtual machine, we instantiated an instance of Ubuntu 22.04.03 LTS, running the 5.15.0-91-generic Linux kernel. The virtual environment is equipped with an Intel(R) Xeon(R) CPU E5-2650 v3 operating at 2.3GHz, 4GB of RAM, and a 30GB virtual boot drive. These virtual machines are connected to a virtual private network (VPN) configured through Okeanos. In order to establish internet connectivity for all three machines, Network Address Translation (NAT) was implemented on the nodeA-snf-42806 machine, which is equipped with the public IPv4 address in this particular instance. This configuration was essential to enable license key verification for the Influx Enterprise data version. However, an elaboration on this aspect will be provided later in this section, specifically within the part of the multi-node Influx installation. TimescaleDB and Influx will be installed on each node, and we will employ the same datasets used in the single-node experiment (small - 1GB, medium - 5GB, and large - 15GB).
 
+(PNG MULTI)
 
 
 

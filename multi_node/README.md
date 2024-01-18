@@ -40,7 +40,44 @@ To any popups we select OK
 sudo reboot
 ```
 	
-Now the kernel is version linux 5.15.0-89-generic
+Now the kernel is version linux 5.15.0-91-generic
+
+### Give internet access to all nodes through the nodeA with public IPv4
+In the Machine with Public IPv4 (NAT Gateway):
+- Open /etc/sysctl.conf and uncomment or add the line:
+```
+net.ipv4.ip_forward=1
+```
+- apply the changes
+```
+sudo sysctl -p
+```
+- Replace eth0 with the interface connected to the public network.
+```
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+- Save the iptables rules
+```
+sudo sh -c 'iptables-save > /etc/iptables.rules'
+```
+- Create a script to restore the rules during boot:
+```
+sudo vim /etc/network/if-pre-up.d/iptables
+```
+- Add the following content:
+```
+#!/bin/sh
+iptables-restore < /etc/iptables.rules
+```
+- Make the script executable:
+```
+sudo chmod +x /etc/network/if-pre-up.d/iptables
+```
+
+In the Machines without Public IPv4:
+```
+sudo ip route add default via <private_ipv4_address_of_the_Machine_with_public_ipv4>
+```
 
 ### Install Influx:
 The Influx database supports clustering mode only in the Enterprise edition which requires some financial resources but it also supports a free 14 trial that we used for our project and we got a license key from their website. The installation and configuration proccess is different for the meta (access) node and the data nodes and for this reason it is stated below seperately for both the meta and the data nodes.
