@@ -1,3 +1,5 @@
+G
+
 - System set up
 
 To execute our benchmarking procedure in the single-node mode of Timescale (an extension of Postgres) and Influx database systems, we intend to establish a virtual machine on the Okeanos Infrastructure as a Service (IaaS) cloud provider.

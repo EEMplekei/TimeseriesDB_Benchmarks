@@ -1,3 +1,8 @@
+G
+
+LOOK ONLY ON THE "BETTER" TEXT THAT IS WRITTEN IN A LITTLE MORE FORMAL FASHION
+
+
 Setting up multi -node
 ORIGINAL
 To see how well each database scales out we setup a cluster that consists of 3 nodes (virtual machines provided by Okeanos). For every virtual machine, we have instantiated an Ubuntu 22.04.03 LTS instance, utilizing the 5.15.0-91-generic Linux kernel. The virtual environment is configured with an Intel(R) Xeon(R) CPU E5-2650 v3 operating at 2.3GHz, 4GB of RAM, and a 30GB virtual boot drive. The virtual machines are connected to a virtual private network (VPN) that is also configured from Okeanos. In each node we will install TimescaleDB and Influx. We will use the same datasets as in the single node experiment (small - 1Gb, medium - 5Gb and large - 15Gb). 

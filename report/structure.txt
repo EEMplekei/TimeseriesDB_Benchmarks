@@ -1,31 +1,29 @@
-Title
+Title --> done
 
-OUR Names
+OUR Names --> done
 
-Abstract
+Abstract --> done
 
-Introduction
+Introduction --> done
 
-Single Node setup
+Single Node setup --> done
 
-Data Generation
+Data Generation --> done 
 
-Query Generation
-- with description of each query type (sql)
+Query Generation --> done
 
+Write Performance (Single Node) --> done
 
-Write Performance (Single Node)
+Disk Size (Single Node) --> done
 
-Disk Size (Single Node)
-
-Query Performance Average 1,10 (Single Node)
+Query Performance Average 1,10 (Single Node) --> done
 - with conclusions
 
 Query Performance each query type (Single Node)
 - with small conclusions and 
 
 
-Multi Node setup
+Multi Node setup --> done
 
 Write Performance (Multi Node)
 - compare with single node (just mention not plot)

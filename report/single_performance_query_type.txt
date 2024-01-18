@@ -1,3 +1,7 @@
+G
+
+
+
 lts show us that the two timeseries database systems execute queries differently. We can see query types that have very large differences in execution speed.
 Beneath is a brief explanation of each query type label and the corresponding SQL query. This will assist us in understanding why some queries are faster than others on each database system.
 
