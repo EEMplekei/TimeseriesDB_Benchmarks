@@ -11,9 +11,11 @@ To see how well each database scales out we setup a cluster that consists of 3 n
 BETTER
 To evaluate the scalability of each database, we established a cluster comprising three nodes (virtual machines provided by Okeanos). For each virtual machine, we instantiated an instance of Ubuntu 22.04.03 LTS, running the 5.15.0-91-generic Linux kernel. The virtual environment is equipped with an Intel(R) Xeon(R) CPU E5-2650 v3 operating at 2.3GHz, 4GB of RAM, and a 30GB virtual boot drive. These virtual machines are connected to a virtual private network (VPN) configured through Okeanos. TimescaleDB and Influx will be installed on each node, and we will employ the same datasets used in the single-node experiment (small - 1GB, medium - 5GB, and large - 15GB).
 
+P M
 EDIT M: (talk about the NAT that was configured for internet access)
 To evaluate the scalability of each database, we established a cluster comprising three nodes (virtual machines provided by Okeanos). For each virtual machine, we instantiated an instance of Ubuntu 22.04.03 LTS, running the 5.15.0-91-generic Linux kernel. The virtual environment is equipped with an Intel(R) Xeon(R) CPU E5-2650 v3 operating at 2.3GHz, 4GB of RAM, and a 30GB virtual boot drive. These virtual machines are connected to a virtual private network (VPN) configured through Okeanos. In order to establish internet connectivity for all three machines, Network Address Translation (NAT) was implemented on the nodeA-snf-42806 machine, which is equipped with the public IPv4 address in this particular instance. This configuration was essential to enable license key verification for the Influx Enterprise data version. However, an elaboration on this aspect will be provided later in this section, specifically within the part of the multi-node Influx installation. TimescaleDB and Influx will be installed on each node, and we will employ the same datasets used in the single-node experiment (small - 1GB, medium - 5GB, and large - 15GB).
 
+EDIT P: In what way are we going to the nodes? Node A or nodeA-snf-42806, we have to be consistent
 (PNG MULTI)
 
 
@@ -27,7 +29,10 @@ BETTER
 For the TimescaleDB cluster, Node A was designated as the access node, while Nodes B and C were assigned as data nodes. We installed TimescaleDB 2.13.1 on all three nodes, mirroring the setup from the single-node experiment. Subsequently, we adjusted the configuration files of PostgreSQL for all three nodes to establish cluster connectivity. Further modifications were made to the configuration of Node A to function as the access node and the configurations of Nodes B and C to operate as data nodes. Following these adjustments, we initiated the creation of the database and hypertable on Node A, incorporating Nodes B and C into the hypertable. Subsequently, we populated the hypertable with data using the same queries employed in the single-node experiment.
 
 
-
+==================================================
+EDIT P (we did not create hypertables on noda A, they were auto created from tsbs, also better not talk about queries here)
+For the TimescaleDB cluster, Node A was designated as the access node, while Nodes B and C were assigned as data nodes. We installed TimescaleDB 2.13.1 on all three nodes, mirroring the setup from the single-node experiment. Subsequently, we adjusted the configuration files of PostgreSQL for all three nodes to establish cluster connectivity. Further modifications were made to the configuration of Node A to function as the access node and the configurations of Nodes B and C to operate as data nodes. Following these adjustments, we initiated the creation of the databases Node A, specifying Nodes B and C as the data nodes that would host the data of each database. Subsequently, we populated the hypertable with data using the same procedures employed in the single-node experiment.
+==================================================
 
 Influx multi
 ORIGINAL 
@@ -37,9 +42,16 @@ To setup Influx in cluster mode we were forced to switch to the Enterprise Editi
 BETTER
 To implement Influx in cluster mode, we had to transition to the Enterprise Edition, the sole version supporting clustering. Influx Enterprise 1.11.3 is a commercial product, but for this project, we leveraged the 14-day free trial. The Influx Enterprise Meta node installer was deployed in Node A, while the Influx Enterprise Data node installer was installed in Nodes B and C. Subsequently, we modified the configuration files of Influx on all three nodes to incorporate the license key obtained from Influx Enterprise. Following this, Node A (meta node) and Node B, Node C (data nodes) were added to the cluster, and subsequently inserted data into the retention policy. The same dataset and queries from the single-node experiment were used.
 
+==========================
+EDIT P (why talk about queries here)
+
+To implement Influx in cluster mode, we had to transition to the Enterprise Edition, the sole version supporting clustering. Influx Enterprise 1.11.3 is a commercial product, but for this project, we utilized the 14-day free trial. The Influx Enterprise Meta node installer was deployed in Node A, while the Influx Enterprise Data node installer was installed in Nodes B and C. Subsequently, we modified the configuration files of Influx on all three nodes to incorporate the license key obtained from Influx Enterprise. Following this, Node A (meta node) and Node B, Node C (data nodes) were added to the cluster, and subsequently inserted data into the retention policy. The same dataset from the single-node experiment were used.
+==========================
+
+
 
 
 
 More Info in repo
 
-For a detailed step-by-step guide, including the specific commands used in the aforementioned processes, please refer to our GitHub Repository. There, you will find a comprehensive procedure outlined with commands, providing an in-depth resource for replicating and understanding each phase of the setup for both TimescaleDB and Influx in cluster mode. Feel free to explore the repository for additional insights, documentation, and any updates related to the setup procedures. This resource is designed to facilitate a smooth and transparent replication of the processes described, enhancing your understanding and ensuring accurate implementation.
+For a detailed step-by-step guide, including the specific commands used in the aforementioned processes, please refer to our GitHub Repository REF(https://github.com/EEMplekei/TimeseriesDB_Benchmarks). There, you will find a comprehensive procedure outlined with commands, providing an in-depth resource for replicating and understanding each phase of the setup for both TimescaleDB and Influx in cluster mode. Feel free to explore the repository for additional insights, documentation, and any updates related to the setup procedures. This resource is designed to facilitate a smooth and transparent replication of the processes described, enhancing your understanding and ensuring accurate implementation.
