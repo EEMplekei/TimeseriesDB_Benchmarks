@@ -1,4 +1,5 @@
-P G (check EDIT in the end)
+APPROVED
+
 DATA GENERATION
 
 In the data generation process, we employed the `tsbs_generate_data` script provided by TSBS. Our initial decision aimed at creating three distinct datasets, intending to assess how the two databases would handle variations in dataset sizes. These datasets consist of a small dataset sized at 1GB, a medium dataset sized at 5GB, and a large dataset measuring 15GB.
@@ -15,14 +16,7 @@ For those seeking additional technical insights into the data generation process
 
 
 QUERY GENERATION
-
-For the query generation process, we elected to employ all query types provided by TSBS within the context of the IoT use case. Subsequently, a decision was made to assess, for each dataset, the execution of a singular query. In this configuration, we systematically clear the cache after each query execution. Additionally, we conducted evaluations involving the execution of ten consecutive queries of the same type. This deliberate approach aimed to scrutinize the indexing and caching performance of the respective databases, as well get a better measurement for each query type, getting the mean value all of the executions.
-
-===============
-P M
-EDIT M: minor changes to the above paragraph(to be more clear why we are generate ten queries and removing the thing about clearing caches - i think it matches in the query execution, here is a little bit out of context- ):
-
 For the query generation process, we elected to employ all query types provided by TSBS within the context of the IoT use case. Subsequently, a decision was made to assess, for each dataset, the execution of a singular query for each type. Additionally, we conducted evaluations involving the execution of ten consecutive queries of the same type.  This intentional approach was aimed at scrutinizing the indexing and caching performance of the respective databases, while also obtaining a more precise measurement for each query type by calculating the mean value across the executions of ten consecutive queries. The inclusion of ten consecutive queries was considered essential due to the inherent randomness in query execution, which, in a single execution, could introduce inaccuracies into our experiment.
-==================
+
 
 To facilitate these procedures, we adapted and employed the bash script `generate_queries.sh` to generate queries for the three databases established for both Influx and TimescaleDB. The script, now renamed as `generate_all_queries.sh`, resides in the repository at REF[REPO/queries_generate_all_queries]. Its primary function is to parameterize and execute the Go binary `tsbs_generate_queries`.
