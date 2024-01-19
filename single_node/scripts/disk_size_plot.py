@@ -32,7 +32,7 @@ try:
                             for category in categories]
         influx_values = [data['influx'][category] for category in categories]
 
-        bar_width = 0.35
+        bar_width = 0.4
         index = range(len(categories))
 
         fig, ax = plt.subplots()
@@ -41,8 +41,8 @@ try:
                       timescale_values, bar_width, label='timescale', color = color_map.get('timescale'))
 
         ax.set_xlabel('Category')
-        ax.set_ylabel('Size (G)')
-        ax.set_title('Single node deployment - Comparison of timescale and influx database disk sizes')
+        ax.set_ylabel('Size (Gb)')
+        ax.set_title('Single node deployment\nComparison of timescale and influx database disk sizes', fontsize = 12)
         ax.set_xticks([i + bar_width / 2 for i in index])
         ax.set_xticklabels(categories)
         ax.legend()
@@ -50,11 +50,11 @@ try:
         # Add labels above each bar
         for bar, value in zip(bar1, timescale_values):
             ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                    f'{value:.2f}G', ha='center', va='bottom')
+                    f'{value:.2f}Gb', ha='center', va='bottom')
 
         for bar, value in zip(bar2, influx_values):
             ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                    f'{value:.2f}G', ha='center', va='bottom')
+                    f'{value:.2f}Gb', ha='center', va='bottom')
 
         plt.show()
 

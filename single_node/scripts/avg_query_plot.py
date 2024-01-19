@@ -42,7 +42,7 @@ for nbr_query in nbr_queries:
     plt.xlabel('Dataset Size')
     plt.ylabel('Execution Time (s)')
     plt.title(
-        f'Single node deployment\nAverage execution time (for {nbr_query} queries per query type)')
+        f'Single node deployment\nAverage execution time (for {nbr_query} queries per query type)', fontsize = 12)
     plt.xticks(x + width * (len(databases) - 1) / 2, dataset_size)
     plt.legend()
     plt.show()

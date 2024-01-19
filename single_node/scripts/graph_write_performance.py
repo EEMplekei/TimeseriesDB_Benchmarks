@@ -70,7 +70,7 @@ axes = [None, None]
 bar_width = 0.35
 index = range(len(categories))
 fig, (axes[0], axes[1]) = plt.subplots(nrows=2, ncols=1, figsize=(10, 8))
-fig.suptitle('Single node deployment - Comparison of TimescaleDB and Influx dataset insertion speed')
+fig.suptitle('Single node deployment\nComparison of TimescaleDB and Influx dataset insertion speed', fontsize = 12)
 
 bar1 = axes[0].bar(index, influx_rowspersec, bar_width, label='influx', color='#fe7f10')
 bar2 = axes[0].bar([i + bar_width for i in index], timescale_rowspersec, bar_width, label='timescale', color='#1f77b4')
@@ -92,7 +92,7 @@ bars = [ [bar1, bar2], [bar3, bar4] ]
 
 # Add labels above each bar
 for item in zip(axes, [rows_per_sec, metrics_mean_rate], bars):
-	item[0].legend(loc='upper right', fancybox=True, framealpha=0.5)
+	item[0].legend(fancybox=True, framealpha=0)
 	for bar, value in zip(item[2][0], item[1][0]):
 		item[0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
 				f'{value/1000:.2f}k ', ha='center', va='bottom')
