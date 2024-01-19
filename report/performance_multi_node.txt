@@ -30,3 +30,18 @@ Regarding the metric rate, InfluxDB consistently surpasses TimescaleDB, exhibiti
 [PNG - WRITE MULTI NODE]
 
 At this juncture, it's reasonable to assert that the insertion speeds of both InfluxDB and TimescaleDB experienced significant enhancements, measured in both rows per second and metrics per second, with the transition to a 3-node cluster. This notable increase in performance metrics stands out when compared to the insertion speeds observed in the single-node configuration.
+
+
+PERFORMANCE EVALUATION: AVERAGE QUERY EXECUTION 
+To assess query performance across individual database clusters, we systematically collect data and generate bar graphs representing two scenarios, mirroring the single-node testing approach. The first scenario involves a single query per query type, with the average execution time recorded. In the second scenario, ten consecutive queries per query type are executed. The resulting graphs visually depict the mean execution time for all query types across three distinct datasets (small, medium, large) in both scenarios.
+
+In the tests involving ten consecutive queries per query type, InfluxDB cluster consistently demonstrates significantly better query time execution on average. The performance gap between the two databases widens notably for the large dataset. Specifically, the InfluxDB cluster surpasses the TimescaleDB cluster by 4.67 times for the small dataset, 4.5 times for the medium dataset, and 6.6 times for the large dataset. 
+
+[PNG - AVG QUERY MULTI NODE]
+
+However, it's important to note that this average may not accurately represent overall performance, as it is influenced largely by three specific query types—high-load, last-loc, and low-fuel—where TimescaleDB exhibits significantly higher execution times. Hence, a comprehensive analysis evaluating the effectiveness of databases based on query types will be presented towards the end of this section, providing a concise summary of the performance associated with each query type.
+
+Similarly to the single node testing, graphs show that for large datasets, Influx outperforms Timescale, diverging from public benchmarks. Previous studies suggest Influx excels in smaller databases, but hardware limitations may impede scaling up data for experiments. However, our analysis should prioritize insights from our experiments.
+
+
+PERFORMANCE EVALUATION: QUERY TYPE EXECUTION
