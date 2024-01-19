@@ -1,4 +1,4 @@
-G (CHEC THE EDIT IN LINE 15)
+G (CHECK THE EDIT IN LINE 15 and LINE 28)
 
 MULTI-NODE
 
@@ -14,7 +14,9 @@ Similarly, within the TimescaleDB environment, the database size exhibits an equ
 
 EDIT M: (add the difference in size occupied by the databases in single node compared to the multi node set up. Althought it is slightly difference, it's worth a mention about this)
 
+=====
 A noteworthy observation accompanies the comparison between the cumulative disk size of data nodes and the disk size occupied by a database when operating on a single machine. In the case of Influx, this comparison reveals a marginal advantage in favor of a multi-node setup, where the cumulative disk size is slightly less than that of a single-node configuration. Conversely, TimescaleDB appears to consume more disk space for data when distributed across multiple data nodes. Despite the relatively slight disparities in cumulative sizes compared to the single-node configuration, on the order of tens of megabytes for our dataset, this constitutes a significant metric in evaluating the efficiency of data storage in multi node set up between the two databases, namely Influx and TimescaleDB.
+======
 
 [PNG Disk size Multi - Node]
 
@@ -24,6 +26,13 @@ A noteworthy observation accompanies the comparison between the cumulative disk 
 PERFORMANCE EVALUATION: WRITE OPERATIONS
 
 To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we adjusted the replication factor parameter in both scripts to ensure data distribution across all data nodes. Additionally, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup.
+
+EDIT M (remove this sentence: "Notably, we adjusted the replication factor parameter in both scripts to ensure data distribution across all data nodes." replication factor do not affect distribution, just should be equals to 1,it is about replicas
+and add a senetence about urls parameter):
+
+======
+To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup. Additionally we adjust the --urls parameter to include the urls of both data nodes.
+=======
 
 Subsequently, we scrutinized the output files generated during the process and constructed performance graphs. A Python script was employed to compare the ingestion rates in terms of rows per second and metrics per second for each database at various sizes. The resulting visual representations are presented below:
 
