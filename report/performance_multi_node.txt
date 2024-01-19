@@ -12,11 +12,7 @@ The graphical representation below illustrates the distribution of database size
 
 Similarly, within the TimescaleDB environment, the database size exhibits an equitable distribution across the two data nodes. Nevertheless, the total database size is substantially larger, primarily attributed to TimescaleDB's default absence of data compression, as underscored in our earlier single-node comparison.
 
-EDIT M: (add the difference in size occupied by the databases in single node compared to the multi node set up. Althought it is slightly difference, it's worth a mention about this)
-
-=====
-A noteworthy observation accompanies the comparison between the cumulative disk size of data nodes and the disk size occupied by a database when operating on a single machine. In the case of Influx, this comparison reveals a marginal advantage in favor of a multi-node setup, where the cumulative disk size is slightly less than that of a single-node configuration. Conversely, TimescaleDB appears to consume more disk space for data when distributed across multiple data nodes. Despite the relatively slight disparities in cumulative sizes compared to the single-node configuration, on the order of tens of megabytes for our dataset, this constitutes a significant metric in evaluating the efficiency of data storage in multi node set up between the two databases, namely Influx and TimescaleDB.
-======
+A noteworthy observation is the comparison between the cumulative disk size of data nodes and the disk size occupied by a database when operating on a single machine. In the case of Influx, this comparison reveals a marginal advantage in favor of a multi-node setup, where the cumulative disk size is slightly less than that of a single-node configuration. Conversely, TimescaleDB appears to consume more disk space for data when distributed across multiple data nodes. Despite the relatively slight disparities in cumulative sizes compared to the single-node configuration, on the order of tens of megabytes for our dataset, this constitutes a significant metric in evaluating the efficiency of data storage in multi node set up between the two databases, namely Influx and TimescaleDB.
 
 [PNG Disk size Multi - Node]
 
@@ -25,14 +21,7 @@ A noteworthy observation accompanies the comparison between the cumulative disk 
 
 PERFORMANCE EVALUATION: WRITE OPERATIONS
 
-To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we adjusted the replication factor parameter in both scripts to ensure data distribution across all data nodes. Additionally, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup.
-
-EDIT M (remove this sentence: "Notably, we adjusted the replication factor parameter in both scripts to ensure data distribution across all data nodes." replication factor do not affect distribution, just should be equals to 1,it is about replicas
-and add a senetence about urls parameter):
-
-======
-To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup. Additionally we adjust the --urls parameter to include the urls of both data nodes.
-=======
+To evaluate the insertion performance of each database cluster, we utilized bash scripts provided by the Time Series Benchmark Suite (TSBS), following a similar approach as in the single node comparison. Notably, we modified the --do-create-db parameter to false in the load_timescale.sh script, facilitating the loading of data into pre-configured and empty TimescaleDB databases with a clustered setup. Additionally we adjust the --urls parameter in the load_influx.sh bash script to include the urls of both data nodes .
 
 Subsequently, we scrutinized the output files generated during the process and constructed performance graphs. A Python script was employed to compare the ingestion rates in terms of rows per second and metrics per second for each database at various sizes. The resulting visual representations are presented below:
 
@@ -42,17 +31,18 @@ Regarding the metric rate, InfluxDB consistently surpasses TimescaleDB, exhibiti
 
 [PNG - WRITE MULTI NODE]
 
-At this juncture, it's reasonable to assert that the insertion speeds of both InfluxDB and TimescaleDB experienced significant enhancements, measured in both rows per second and metrics per second, with the transition to a 3-node cluster. This notable increase in performance metrics stands out when compared to the insertion speeds observed in the single-node configuration.
+At this point, it's reasonable to assert that the insertion speeds of both InfluxDB and TimescaleDB experienced significant enhancements, measured in both rows per second and metrics per second, with the transition to a 3-node cluster. This notable increase in performance metrics stands out when compared to the insertion speeds observed in the single-node configuration.
 
+This phenomenon can be explained by the fact that the insertion of a dataset across multiple nodes concurrently distributes the inherently slow input/output (IO) write operations, thus enhancing the overall operational efficiency. The associated overhead for write synchronization is comparatively lower than the expense incurred by waiting for IO write operations on a singular machine.
 
 PERFORMANCE EVALUATION: AVERAGE QUERY EXECUTION 
-To assess query performance across individual database clusters, we systematically collect data and generate bar graphs representing two scenarios, mirroring the single-node testing approach. The first scenario involves a single query per query type, with the average execution time recorded. In the second scenario, ten consecutive queries per query type are executed. The resulting graphs visually depict the mean execution time for all query types across three distinct datasets (small, medium, large) in both scenarios.
+To assess query performance across individual database clusters, we systematically collect data and generate bar graphs representing two scenarios, mirroring the single-node testing approach. The first scenario involves a single query per query type, with the average execution time recorded. In the second scenario, ten consecutive queries per query type are executed. The resulting graphs visually depicts the mean execution time for all query types across three distinct datasets (small, medium, large) in both scenarios.
 
 In the tests involving ten consecutive queries per query type, InfluxDB cluster consistently demonstrates significantly better query time execution on average. The performance gap between the two databases widens notably for the large dataset. Specifically, the InfluxDB cluster surpasses the TimescaleDB cluster by 4.67 times for the small dataset, 4.5 times for the medium dataset, and 6.6 times for the large dataset. 
 
 [PNG - AVG QUERY MULTI NODE]
 
-However, it's important to note that this average may not accurately represent overall performance, as it is influenced largely by three specific query types—high-load, last-loc, and low-fuel—where TimescaleDB exhibits significantly higher execution times. Hence, a comprehensive analysis evaluating the effectiveness of databases based on query types will be presented towards the end of this section, providing a concise summary of the performance associated with each query type.
+However, it's important to note that this average may not accurately represent overall performance, as it is influenced largely by three specific query types (high-load, last-loc, and low-fuel) where TimescaleDB exhibits significantly higher execution times. Hence, a comprehensive analysis evaluating the effectiveness of databases based on query types will be presented towards the end of this section, providing a concise summary of the performance associated with each query type.
 
 Similarly to the single node testing, graphs show that for large datasets, Influx outperforms Timescale, diverging from public benchmarks. Previous studies suggest Influx excels in smaller databases, but hardware limitations may impede scaling up data for experiments. However, our analysis should prioritize insights from our experiments.
 
