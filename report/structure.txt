@@ -6,11 +6,13 @@ Abstract --> done
 
 Introduction --> done
 
-Single Node setup --> done
-
 Data Generation --> done 
 
 Query Generation --> done
+
+Single Node setup --> done
+
+
 
 Write Performance (Single Node) --> done
 
