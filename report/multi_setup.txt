@@ -33,6 +33,13 @@ BETTER
 To implement Influx in cluster mode, we had to transition to the Enterprise Edition, the sole version supporting clustering. Influx Enterprise 1.11.3 is a commercial product, but for this project, we utilized the 14-day free trial. The Influx Enterprise Meta node installer was deployed in Node A, while the Influx Enterprise Data node installer was installed in Nodes B and C. Subsequently, we modified the configuration files of Influx on all three nodes to incorporate the license key obtained from Influx Enterprise. Following this, Node A (meta node) and Node B, Node C (data nodes) were added to the cluster, and subsequently inserted data into the retention policy. The same dataset and queries from the single-node experiment were used.
 
 
+Install TSBS
+
+
+
+
+
+
 More Info in repo
 
 For a detailed step-by-step guide, including the specific commands used in the aforementioned processes, please refer to our GitHub Repository REF(https://github.com/EEMplekei/TimeseriesDB_Benchmarks). There, you will find a comprehensive procedure outlined with commands, providing an in-depth resource for replicating and understanding each phase of the setup for both TimescaleDB and Influx in cluster mode. Feel free to explore the repository for additional insights, documentation, and any updates related to the setup procedures. This resource is designed to facilitate a smooth and transparent replication of the processes described, enhancing your understanding and ensuring accurate implementation.
