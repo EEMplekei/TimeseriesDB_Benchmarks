@@ -33,16 +33,16 @@ for nbr_query in nbr_queries:
 
     # Create a bar plot for each number of queries
     x = np.arange(len(dataset_size))
-    width = 0.2  # Width of the bars
+    width = 0.4  # Width of the bars
 
     for i, (means, database_name) in enumerate(zip(means_list, database_names)):
         bar = plt.bar(x + i * width, list(map(lambda x : x / 1000, means)), width=width, label=database_name, color = color_map.get(database_name))
-        plt.bar_label(bar, fmt = '{:,.2f} s')
+        plt.bar_label(bar, fmt = '{:,.2f}s')
 
     plt.xlabel('Dataset Size')
     plt.ylabel('Execution Time (s)')
     plt.title(
-        f'Single node deployment - Average execution time (for {nbr_query} queries per query type)')
+        f'Single node deployment\nAverage execution time (for {nbr_query} queries per query type)')
     plt.xticks(x + width * (len(databases) - 1) / 2, dataset_size)
     plt.legend()
     plt.show()
