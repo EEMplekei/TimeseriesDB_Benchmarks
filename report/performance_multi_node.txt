@@ -1,4 +1,4 @@
-G
+G (CHEC THE EDIT IN LINE 15)
 
 MULTI-NODE
 
@@ -11,6 +11,10 @@ The storage mechanism driving our InfluxDB cluster is the InfluxDB Time-Structur
 The graphical representation below illustrates the distribution of database sizes across the two data nodes. Reiterating our observations, we note a noteworthy reduction in the cumulative database size in InfluxDB compared to TimescaleDB, attributable to InfluxDB's inherent compression. Additionally, a uniform distribution of the database size across the two data nodes is evident.
 
 Similarly, within the TimescaleDB environment, the database size exhibits an equitable distribution across the two data nodes. Nevertheless, the total database size is substantially larger, primarily attributed to TimescaleDB's default absence of data compression, as underscored in our earlier single-node comparison.
+
+EDIT M: (add the difference in size occupied by the databases in single node compared to the multi node set up. Althought it is slightly difference, it's worth a mention about this)
+
+A noteworthy observation accompanies the comparison between the cumulative disk size of data nodes and the disk size occupied by a database when operating on a single machine. In the case of Influx, this comparison reveals a marginal advantage in favor of a multi-node setup, where the cumulative disk size is slightly less than that of a single-node configuration. Conversely, TimescaleDB appears to consume more disk space for data when distributed across multiple data nodes. Despite the relatively slight disparities in cumulative sizes compared to the single-node configuration, on the order of tens of megabytes for our dataset, this constitutes a significant metric in evaluating the efficiency of data storage in multi node set up between the two databases, namely Influx and TimescaleDB.
 
 [PNG Disk size Multi - Node]
 
