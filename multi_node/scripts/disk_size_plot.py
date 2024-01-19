@@ -30,20 +30,20 @@ try:
     timescale_values_C = data['timescale']['C_size']
     influx_values_C = data['influx']['C_size']
 
-    bar_width = 0.1
+    bar_width = 0.2
     index = range(len(categories))
    
     fig, ax = plt.subplots()
-    bar1 = ax.bar(index, influx_values_B, bar_width, label='influx_dataNodeB', color = color_map.get('influx', {}).get('B_size', None))
+    bar1 = ax.bar(index, influx_values_B, bar_width, label='Influx data node B', color = color_map.get('influx', {}).get('B_size', None))
     bar2 = ax.bar([i + bar_width for i in index],
-                    influx_values_C, bar_width, label='influx_dataNodeC', color = color_map.get('influx', {}).get('C_size', None))
-    bar3 = ax.bar([i + 2*bar_width for i in index], timescale_values_B, bar_width, label='timescale_dataNodeB', color = color_map.get('timescale', {}).get('B_size', None))
+                    influx_values_C, bar_width, label='Influx data node C', color = color_map.get('influx', {}).get('C_size', None))
+    bar3 = ax.bar([i + 2*bar_width for i in index], timescale_values_B, bar_width, label='Timescale data node B', color = color_map.get('timescale', {}).get('B_size', None))
     bar4 = ax.bar([i + 3*bar_width for i in index],
-                    timescale_values_C, bar_width, label='timescale_dataNodeC', color = color_map.get('timescale', {}).get('C_size', None))
+                    timescale_values_C, bar_width, label='Timescale data node C', color = color_map.get('timescale', {}).get('C_size', None))
 
     ax.set_xlabel('Category')
-    ax.set_ylabel('Size (G)')
-    ax.set_title('Multi node deployment - Comparison of timescale and influx database disk sizes on each data node')
+    ax.set_ylabel('Size (Gb)')
+    ax.set_title('Multi node deployment\nComparison of timescale and influx database disk sizes\non each data node', fontsize = 12)
     # Modify the x-ticks to be at the center of each group of bars
     ax.set_xticks([i + bar_width*(len(categories)) / 2 for i in index])
     ax.set_xticklabels(categories)
@@ -52,19 +52,20 @@ try:
     #Add labels above each bar
     for bar, value in zip(bar1, influx_values_B):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}G', ha='center', va='bottom')
+                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar2, influx_values_C):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}G', ha='center', va='bottom')
+                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar3, timescale_values_B):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}G', ha='center', va='bottom')
+                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar4, timescale_values_C):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}G', ha='center', va='bottom')
+                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
+
 
     plt.show()
 

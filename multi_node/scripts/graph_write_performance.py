@@ -70,7 +70,7 @@ axes = [None, None]
 bar_width = 0.35
 index = range(len(categories))
 fig, (axes[0], axes[1]) = plt.subplots(nrows=2, ncols=1, figsize=(10, 8))
-fig.suptitle('Multi node deployment - Comparison of TimescaleDB and Influx dataset insertion speed')
+fig.suptitle('Multi node deployment\nComparison of TimescaleDB and Influx dataset insertion speed', fontsize = 12)
 
 bar1 = axes[0].bar(index, influx_rowspersec, bar_width, label='influx', color='#fe7f10')
 bar2 = axes[0].bar([i + bar_width for i in index], timescale_rowspersec, bar_width, label='timescale', color='#1f77b4')
