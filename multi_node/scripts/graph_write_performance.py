@@ -80,8 +80,8 @@ axes[0].set_title('Timescale vs Influx rows/sec insertion speed')
 axes[0].set_xticks([i + bar_width / 2 for i in index])
 axes[0].set_xticklabels(categories)
 
-bar3 = axes[1].bar(index, influx_metricspersec, bar_width, label='influx', color='#fe7f10')
-bar4 = axes[1].bar([i + bar_width for i in index], timescale_metricspersec, bar_width, label='timescale', color='#1f77b4')
+bar3 = axes[1].bar(index, influx_metricspersec, bar_width, label='_influx', color='#fe7f10')
+bar4 = axes[1].bar([i + bar_width for i in index], timescale_metricspersec, bar_width, label='_timescale', color='#1f77b4')
 
 axes[1].set_xlabel('Dataset Size')
 axes[1].set_ylabel('Metrics / second')
@@ -92,7 +92,7 @@ bars = [ [bar1, bar2], [bar3, bar4] ]
 
 # Add labels above each bar
 for item in zip(axes, [rows_per_sec, metrics_mean_rate], bars):
-	item[0].legend(loc='upper right', fancybox=True, framealpha=0.5)
+	#item[0].legend(loc='upper right', fancybox=True, framealpha=0.5)
 	for bar, value in zip(item[2][0], item[1][0]):
 		item[0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
 				f'{value/1000:.2f}k ', ha='center', va='bottom')
@@ -100,5 +100,11 @@ for item in zip(axes, [rows_per_sec, metrics_mean_rate], bars):
 	for bar, value in zip(item[2][1], item[1][1]):
 		item[0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
 				f'{value/1000:.2f}k', ha='center', va='bottom')
+
+# Remove individual legends from subplots
+axes[0].legend().set_visible(False)
+axes[1].legend().set_visible(False)
+# Place a common legend outside the subplots
+fig.legend(loc='lower right',fancybox=True, framealpha=0)
 
 plt.show()
