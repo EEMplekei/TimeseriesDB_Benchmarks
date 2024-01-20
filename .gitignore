@@ -2,3 +2,4 @@
 **/.DS_Store
 single_node/scripts/__pycache__/*
 multi_node/scripts/__pycache__/*
+.vscode/settings.json

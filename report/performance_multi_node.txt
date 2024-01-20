@@ -48,3 +48,5 @@ Similarly to the single node testing, graphs show that for large datasets, Influ
 
 
 PERFORMANCE EVALUATION: QUERY TYPE EXECUTION
+
+The generated plots illustrate that, akin to the single-node deployment, there is a discernible trend of query execution slowing down with the expansion of datasets. The same extreme cases apply to this topology.
