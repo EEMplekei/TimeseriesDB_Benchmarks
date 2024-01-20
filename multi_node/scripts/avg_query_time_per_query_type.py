@@ -26,36 +26,37 @@ for query_size in query_sizes:
 			results[(database, size, query_size)] = means
 
 bar_width = 0.35
-index = range(len(query_types))
-fig, ax = plt.subplots(3, 1)
-fig.suptitle(
-	f'Multi node deployment - Comparison of timescale and influx for each query type, 10 queries')
-fig.subplots_adjust()
 
-for db_size, i in zip(dataset_size, range(3)):
+for figure_num, index_range in enumerate([(0, 6), (6, len(query_types))], start=1):
+    index = range(len(query_types))[index_range[0]:index_range[1]]
 
-	bar1 = ax[i].bar(index, list(map(lambda x: x/1000, results[('influx', db_size, '10')])),
-					 bar_width, label='influx', color=color_map['influx'])
-	
-	bar2 = ax[i].bar([i + bar_width for i in index],
-					 list(map(lambda x: x/1000, results[('timescale', db_size, '10')])), bar_width, label='timescale', color=color_map['timescale'])
-	
-	#ax[i].set_yscale('log')
-	ax[i].set_xlabel('Query type')
-	ax[i].set_ylabel('Execution time (s)')
-	ax[i].set_title(f'{db_size} dataset')
-	ax[i].set_xticks([i + bar_width / 2 for i in index])
-	ax[i].set_xticklabels(query_types, rotation=20)
-	ax[i].legend(framealpha = 0)
+    fig, axs = plt.subplots(3, 1, figsize=(8, 10))
+    fig.suptitle(f'Multi node deployment\nComparison of timescale and influx for each query type, 10 queries')
+    fig.subplots_adjust()
 
-	# Add labels above each bar
-	for bar1, bar2, value_inf, value_time in zip(bar1, bar2, results[('influx', db_size, '10')], results[('timescale', db_size, '10')]):
+    for db_size, i in zip(dataset_size, range(3)):
+        bar1 = axs[i].bar(index, [x / 1000 for x in results[('influx', db_size, '10')][index_range[0]:index_range[1]]],
+                          bar_width, label='influx', color=color_map['influx'])
 
-		ax[i].text(bar1.get_x() + bar1.get_width() / 2, bar1.get_height() +
-				   0.05 + (1 if value_inf > value_time else 0), f'{value_inf/1000:.1f}', ha='center', va='bottom')
+        bar2 = axs[i].bar([x + bar_width for x in index],
+                           [x / 1000 for x in results[('timescale', db_size, '10')][index_range[0]:index_range[1]]],
+                           bar_width, label='timescale', color=color_map['timescale'])
 
-		ax[i].text(bar2.get_x() + bar2.get_width() / 2, bar2.get_height() +
-				   0.05+ (1 if value_time > value_inf else 0), f'{value_time/1000:.1f}', ha='center', va='bottom')
+        axs[i].set_xlabel('Query type')
+        axs[i].set_ylabel('Execution time (s)')
+        axs[i].set_title(f'{db_size} dataset')
+        axs[i].set_xticks([x + bar_width / 2 for x in index])
+        axs[i].set_xticklabels(query_types[index_range[0]:index_range[1]], rotation=20)
+        axs[i].legend(framealpha=0)
 
-fig.autofmt_xdate()
-plt.show()
+        for bar_inf, bar_time, value_inf, value_time in zip(bar1, bar2,
+                                                            results[('influx', db_size, '10')][index_range[0]:index_range[1]],
+                                                            results[('timescale', db_size, '10')][index_range[0]:index_range[1]]):
+            axs[i].text(bar_inf.get_x() + bar_inf.get_width() / 2, bar_inf.get_height() + 0.05 + (1 if value_inf > value_time else 0),
+                         f'{value_inf/1000:.1f}', ha='center', va='bottom')
+
+            axs[i].text(bar_time.get_x() + bar_time.get_width() / 2, bar_time.get_height() + 0.05 + (1 if value_time > value_inf else 0),
+                         f'{value_time/1000:.1f}', ha='center', va='bottom')
+
+    fig.autofmt_xdate()
+    plt.show()
