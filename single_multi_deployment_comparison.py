@@ -55,12 +55,12 @@ timescale_multi_values = [results[('multi_node', 'timescale', 'small')], results
 for i, (means, database_name) in enumerate(zip([influx_single_values, influx_multi_values, timescale_single_values, timescale_multi_values], categories)):
     bar = plt.bar(x + i * width, list(map(lambda x: x / 1000, means)),
                   width=width, label=database_name, color=color_map.get(database_name))
-    plt.bar_label(bar, fmt='{:,.2f} s')
+    plt.bar_label(bar, fmt='{:,.2f}s', size=6)
 
 plt.xlabel('Dataset Size')
 plt.ylabel('Execution Time (s)')
 plt.title(
-    f'Multi node vs single node deployment - Average execution time (for {nbr_query} queries per query type)')
+    f'Multi node vs single node deployment\nAverage execution time (for {nbr_query} queries per query type)')
 plt.xticks(x + width * (len(categories) - 1) / 2, dataset_size)
 plt.legend()
 plt.show()
