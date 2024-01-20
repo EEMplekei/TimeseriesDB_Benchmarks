@@ -18,7 +18,7 @@ Influxdb uses the directory "var/lib/influxdb/data" and stores database files in
 
 
 [https://www.influxdata.com/blog/improved-data-ingest-compression-influxdb-3-0/ ]
-[ https://docs.influxdata.com/influxdb/v1/concepts/storage_engine/?_gl=1*1vpjfok*_ga*Mzk3ODQ1Njg2LjE3MDQ3OTMzODc.*_ga_CNWQ54SDD8*MTcwNTQ4MzE1OC4xNS4wLjE3MDU0ODMxNTguNjAuMC4w ]
+[ https://docs.influxdata.com/influxdb/v1/concepts/storage_engine/?_gl=1*1vpjfok*_ga*Mzk3ODQ1Njg2LjE3MDQ3OTMzODc.*_ga_CNWQ54SDD8*TcwNTQ4MzE1OC4xNS4wLjE3MDU0ODMxNTguNjAuMC4w ]M
 
 PERFORMANCE EVALUATION: WRITE OPERATIONS
 
@@ -52,7 +52,7 @@ PERFORMANCE EVALUATION: AVERAGE QUERY EXECUTION
 To quantify query performance across each database, we systematically gather data and construct bar graphs encompassing two distinct scenarios. The initial scenario involves the execution of a singular query per query type, with subsequent computation of the average execution time. The second scenario entails the execution of ten consecutive queries per query type. The ensuing graphs visually present the mean execution time for all query types across the three distinct datasets (small, medium, large) under both scenarios.
 A concise analysis detailing the comparative efficiency of databases in handling aggregates, joins, and simple projections will be expounded upon shortly towards the conclusion of this section analyzing briefly the performance for every query type.
 
-Initially, subtle disparities are observed between the executions for single and ten queries per type. The primary distinction manifests in a marginal convergence between the two databases, namely Influx and Timescale. However, the temporal differential in large datasets continues to exhibit substantial levels.
+Initially, discernible differences emerge in the execution patterns when comparing single and ten queries per type. The primary divergence is characterized by a slight convergence concerning small and medium datasets between the two databases, specifically Influx and Timescale, in the context of ten consecutive queries' execution. However, the disparity persists notably in large datasets, showcasing substantial levels and, in fact, exceeding that observed in a single query execution.
 
 Both graphical representations depict that for small and medium datasets, distinctions between the two databases are less pronounced. Nevertheless, concerning large datasets, the disparity intensifies significantly, with Influx surpassing Timescale in performance. This observation contrasts with findings from publicly available benchmarks. Existing researches suggests that InfluxDB excels in smaller databases, with its performance markedly deteriorating as data sizes increase, where Timescale outperforms REF[https://medium.com/timescale/timescaledb-vs-influxdb-for-time-series-data-timescale-influx-sql-nosql-36489299877]. However, it is worth noting that the limitations of our hardware resources, encompassing CPU, memory, and disk storage, may constrain our ability to scale up data and conduct experiments as the dataset size really expands. Despite our limitations we should confine our analysis to the observations discerned from our graphical representations.
 
