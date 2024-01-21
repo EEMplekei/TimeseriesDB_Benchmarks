@@ -42,7 +42,7 @@ try:
                     timescale_values_C, bar_width, label='Timescale data node C', color = color_map.get('timescale', {}).get('C_size', None))
 
     ax.set_xlabel('Category')
-    ax.set_ylabel('Size (Gb)')
+    ax.set_ylabel('Size (GB)')
     ax.set_title('Multi node deployment\nComparison of timescale and influx database disk sizes\non each data node', fontsize = 12)
     # Modify the x-ticks to be at the center of each group of bars
     ax.set_xticks([i + bar_width*(len(categories)) / 2 for i in index])
@@ -52,19 +52,19 @@ try:
     #Add labels above each bar
     for bar, value in zip(bar1, influx_values_B):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
+                f'{value:.2f}GB', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar2, influx_values_C):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
+                f'{value:.2f}GB', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar3, timescale_values_B):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
+                f'{value:.2f}GB', ha='center', va='bottom').set_size(6)
 
     for bar, value in zip(bar4, timescale_values_C):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f'{value:.2f}Gb', ha='center', va='bottom').set_size(6)
+                f'{value:.2f}GB', ha='center', va='bottom').set_size(6)
 
 
     plt.show()
