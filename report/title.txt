@@ -1,1 +1,0 @@
-A Comparative Analysis of InfluxDB and TimescaleDB: Meeting the Evolving Demands of Time Series Data Management
